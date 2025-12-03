@@ -35,6 +35,7 @@ git checkout -b fix/7-save-button
 git checkout -b docs/api-documentation
 ```
 **Github Desktop**
+
 ![Create New Branch](<DocsAssets/create-branch.png>)
 
 **Why this matters:** Keeps work organized and makes it clear what each branch does.
@@ -77,6 +78,7 @@ git push origin feature/3-user-login
    ```
 
 2. **Go to GitHub** → your repository → you'll see a "Compare & pull request" button
+
 ![Create Pull Request](DocsAssets/pull-request.png)
 
 3. **Fill out the PR template:**
