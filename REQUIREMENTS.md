@@ -12,7 +12,7 @@ The system is intended to support the management of a training company by enabli
 
 - Registration and management of different types of employees  
 - Monitoring contract validity and criminal record expiration  
-- Management of training sessions and related costs  
+- Management of courses and related costs  
 - Data queries and reporting  
 - Time-simulation through an internal system clock  
 
@@ -63,28 +63,28 @@ The system shall allow updating the criminal record information for any employee
 
 ---
 
-## FR03 — Training Management
+## FR03 — Course Management
 
-### FR03.1 – Create a training session  
-The system shall allow creating a training session with:
+### FR03.1 – Create a Course  
+The system shall allow creating a course with:
 
 - Course name  
 - Area  
 - Assigned trainer  
 - Start date and end date  
 
-### FR03.2 – Assign trainer to training session  
-Each training session shall be associated with exactly one valid trainer.
+### FR03.2 – Assign trainer to course  
+Each course shall be associated with exactly one valid trainer.
 
-### FR03.3 – View training sessions  
-The system shall display a list of all training sessions.
+### FR03.3 – View course  
+The system shall display a list of all courses.
 
 ---
 
 ## FR04 — Cost Calculations
 
-### FR04.1 – Calculate training session cost  
-The system shall calculate the cost of a training session based on:
+### FR04.1 – Calculate course cost  
+The system shall calculate the cost of a course based on:
 
 - Number of days  
 - 6 hours per day  
