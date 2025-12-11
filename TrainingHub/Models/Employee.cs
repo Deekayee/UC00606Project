@@ -45,6 +45,9 @@ public abstract class Employee
     // Method to check if the employee has an expired criminal record
     public bool HasExpiredCriminalRecord => CriminalRecordEndDate < DateTime.Now;
 
-    // Abstract to string method
-    public abstract override string ToString();
+    // Override the base ToString method
+    public override string ToString()
+    {
+        return $"Id: {Id}, FirstName: {FirstName}, LastName: {LastName}, Address: {Address}, PhoneNumber: {PhoneNumber}, ContractStartDate: {ContractStartDate}, ContractEndDate: {ContractEndDate}, CriminalRecordEndDate: {CriminalRecordEndDate}, SalaryBase: {SalaryBase}";
+    }
 }
