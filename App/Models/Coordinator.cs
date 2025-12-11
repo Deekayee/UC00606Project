@@ -2,6 +2,6 @@
 
 public class Coordinator
 {
-    private ObservableCollection<Trainer> Trainers { get; set; }
-    private string CoordinationArea { get; set; }
+    public ObservableCollection<Trainer> Trainers { get; set; }
+    public string CoordinationArea { get; set; }
 }

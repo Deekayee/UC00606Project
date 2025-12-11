@@ -11,7 +11,7 @@ public class Trainer
 
     public class Trainer : Employee
     {
-        private string TeachingSubject { get; set; }
-        private Availability Availability { get; set; }
-        private decimal HourlyRate { get; set; }  
+        public string TeachingSubject { get; set; }
+        public Availability Availability { get; set; }
+        public decimal HourlyRate { get; set; }  
 }

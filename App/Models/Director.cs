@@ -2,7 +2,7 @@
 
 public class Director
 {
-    private bool FlexibleHours { get; set; }
-    private decimal MonthlyBonus { get; set; }
-    private bool CompanyCar { get; set; }
+    public bool FlexibleHours { get; set; }
+    public decimal MonthlyBonus { get; set; }
+    public bool CompanyCar { get; set; }
 }

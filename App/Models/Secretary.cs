@@ -2,6 +2,6 @@
 
 public class Secretary
 {
-    private Director ReportsToDirector { get; set; }
-    private string Area { get; set; }
+    public Director ReportsToDirector { get; set; }
+    public string Area { get; set; }
 }
