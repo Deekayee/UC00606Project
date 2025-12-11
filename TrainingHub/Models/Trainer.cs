@@ -9,6 +9,6 @@ public class Trainer : Employee
         Both,
     }
         public string TeachingSubject { get; set; }
-        public Availability Availability { get; set; }
+        public Availability TrainerAvailability { get; set; }
         public decimal HourlyRate { get; set; }  
 }
