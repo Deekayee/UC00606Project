@@ -2,13 +2,13 @@
 
 public abstract class Employee
 {
-    protected int Id { get; set; }
-    protected string FirstName { get; set; }
-    protected string LastName { get; set; }
-    protected string Address { get; set; }
-    protected string PhoneNumber { get; set; }
-    protected DateTime ContractStartDate { get; set; }
-    protected DateTime ContractEndDate { get; set; }
-    protected DateTime CriminalRecordEndDate { get; set; }
-    protected decimal SalaryBase { get; set; }
+    public int Id { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Address { get; set; }
+    public string PhoneNumber { get; set; }
+    public DateTime ContractStartDate { get; set; }
+    public DateTime ContractEndDate { get; set; }
+    public DateTime CriminalRecordEndDate { get; set; }
+    public decimal SalaryBase { get; set; }
 }
