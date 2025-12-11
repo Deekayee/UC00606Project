@@ -1,4 +1,4 @@
-﻿namespace _.ViewModels;
+﻿namespace TrainingHub.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {

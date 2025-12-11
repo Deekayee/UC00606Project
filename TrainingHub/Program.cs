@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using System;
 
-namespace _;
+namespace TrainingHub;
 
 sealed class Program
 {

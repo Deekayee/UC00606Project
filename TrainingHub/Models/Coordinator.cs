@@ -1,4 +1,4 @@
-﻿namespace UC00606Project.Models;
+﻿namespace TrainingHub.Models;
 
 public class Coordinator : Employee
 {
