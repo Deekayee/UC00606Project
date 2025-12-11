@@ -1,4 +1,4 @@
-﻿namespace UC00606Project.Data.Entities;
+﻿namespace UC00606Project.Models;
 
 public abstract class Employee
 {
