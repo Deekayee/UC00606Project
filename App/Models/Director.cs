@@ -1,6 +1,6 @@
 ﻿namespace UC00606Project.Models;
 
-public class Director
+public class Director : Employee
 {
     public bool FlexibleHours { get; set; }
     public decimal MonthlyBonus { get; set; }

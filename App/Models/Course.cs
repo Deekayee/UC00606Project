@@ -1,6 +1,6 @@
 ﻿namespace UC00606Project.Models;
 
-public class Course
+public class Course 
 {
     public string CourseName { get; set; }
     public string Area { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace UC00606Project.Models;
 
-public class Trainer
+public class Trainer : Employee
 {
     public enum Availability
     {
@@ -8,9 +8,6 @@ public class Trainer
         Evening,
         Both,
     }
-
-    public class Trainer : Employee
-    {
         public string TeachingSubject { get; set; }
         public Availability Availability { get; set; }
         public decimal HourlyRate { get; set; }  
