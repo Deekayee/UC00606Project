@@ -1,4 +1,6 @@
-﻿namespace TrainingHub.Models;
+﻿using System.Collections.ObjectModel;
+
+namespace TrainingHub.Models;
 
 public class Coordinator : Employee
 {

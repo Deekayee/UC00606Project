@@ -1,4 +1,6 @@
-﻿namespace TrainingHub.Models;
+﻿using System;
+
+namespace TrainingHub.Models;
 
 public abstract class Employee
 {

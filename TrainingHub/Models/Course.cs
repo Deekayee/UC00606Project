@@ -1,6 +1,8 @@
-﻿namespace TrainingHub.Models;
+﻿using System;
 
-public class Course 
+namespace TrainingHub.Models;
+
+public class Course
 {
     public string CourseName { get; set; }
     public string Area { get; set; }
