@@ -1,4 +1,5 @@
 ﻿using System;
+using TrainingHub.Services;
 
 namespace TrainingHub.Models;
 
@@ -15,13 +16,16 @@ public abstract class Employee
     public DateTime CriminalRecordEndDate { get; set; }
     public decimal SalaryBase { get; set; }
 
+    // Dependency Injection
+    protected readonly IDateProvider DateProvider;
+
     // Constructors
 
     // Default constructor
-    public Employee() { }
+    public Employee(IDateProvider dateProvider) { DateProvider = dateProvider; }
 
     // Parameterized constructor
-    public Employee(int id, string firstName, string lastName, string address, string phoneNumber, DateTime contractStartDate, DateTime contractEndDate, DateTime criminalRecordEndDate, decimal salaryBase)
+    public Employee(int id, string firstName, string lastName, string address, string phoneNumber, DateTime contractStartDate, DateTime contractEndDate, DateTime criminalRecordEndDate, decimal salaryBase, IDateProvider dateProvider) : this(dateProvider)
     {
         Id = id;
         FirstName = firstName;
@@ -37,13 +41,13 @@ public abstract class Employee
     // Methods
 
     // Method to check if the contract is valid
-    public bool IsContractValid => ContractEndDate < DateTime.Now;
+    public bool IsContractValid => ContractEndDate.Date >= DateProvider.Today && ContractStartDate.Date <= DateProvider.Today;
 
     // Abstract method to calculate the salary, the implementation is left to the derived classes
     public abstract decimal CalculateMonthlySalary();
 
     // Method to check if the employee has an expired criminal record
-    public bool HasExpiredCriminalRecord => CriminalRecordEndDate < DateTime.Now;
+    public bool IsCriminalRecordExpired => CriminalRecordEndDate.Date < DateProvider.Today;
 
     // Override the base ToString method
     public override string ToString()
