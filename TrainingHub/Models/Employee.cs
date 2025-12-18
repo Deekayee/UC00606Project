@@ -22,7 +22,7 @@ public abstract class Employee
     public Employee() { }
 
     // Parameterized constructor
-    public Employee(int id, string firstName, string lastName, string address, string phoneNumber, DateTime contractStartDate, DateTime contractEndDate, DateTime criminalRecordEndDate, decimal salaryBase, IDateProvider dateProvider) : this(dateProvider)
+    public Employee(int id, string firstName, string lastName, string address, string phoneNumber, DateTime contractStartDate, DateTime contractEndDate, DateTime criminalRecordEndDate, decimal salaryBase)
     {
         Id = id;
         FirstName = firstName;
