@@ -16,13 +16,10 @@ public abstract class Employee
     public DateTime CriminalRecordEndDate { get; set; }
     public decimal SalaryBase { get; set; }
 
-    // Dependency Injection
-    protected readonly IDateProvider DateProvider;
-
     // Constructors
 
     // Default constructor
-    public Employee(IDateProvider dateProvider) { DateProvider = dateProvider; }
+    public Employee() { }
 
     // Parameterized constructor
     public Employee(int id, string firstName, string lastName, string address, string phoneNumber, DateTime contractStartDate, DateTime contractEndDate, DateTime criminalRecordEndDate, decimal salaryBase, IDateProvider dateProvider) : this(dateProvider)
@@ -41,13 +38,13 @@ public abstract class Employee
     // Methods
 
     // Method to check if the contract is valid
-    public bool IsContractValid => ContractEndDate.Date >= DateProvider.Today && ContractStartDate.Date <= DateProvider.Today;
+    public bool IsContractValid(DateTime referenceDate) => ContractEndDate.Date >= referenceDate.Date && ContractStartDate.Date <= referenceDate.Date;
 
     // Abstract method to calculate the salary, the implementation is left to the derived classes
     public abstract decimal CalculateMonthlySalary();
 
     // Method to check if the employee has an expired criminal record
-    public bool IsCriminalRecordExpired => CriminalRecordEndDate.Date < DateProvider.Today;
+    public bool IsCriminalRecordExpired(DateTime referenceDate) => CriminalRecordEndDate.Date < referenceDate.Date;
 
     // Override the base ToString method
     public override string ToString()
