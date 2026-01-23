@@ -6,15 +6,30 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TrainingHub.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/TrainingHubLogo.png"
         Title="TrainingHub">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
+	<Grid Margin="24">
+		<Border IsVisible="{Binding ShowLogin}"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Top"
+				Width="360"
+				Padding="20"
+				CornerRadius="12"
+				BorderBrush="{DynamicResource ThemeBorderLowBrush}"
+				BorderThickness="1">
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
+	<StackPanel Spacing="10" Width="320" HorizontalAlignment="Center" VerticalAlignment="Center">
+		<Image Source="/Assets/TrainingHubLogo.png" Width="220" HorizontalAlignment="Center"/>
+		<TextBlock Text="Enter your Credentials" FontSize="14" Opacity="0.75" HorizontalAlignment="Center"/>
+		<TextBox Watermark="Username" Text="{Binding Username}" Width="300"/>
+		<TextBox Watermark="Password" PasswordChar="*" Text="{Binding Password}" Width="300"/>
+		<Button Content="Login" HorizontalAlignment="Center"/>
+		<TextBlock Text="{Binding Message}" Foreground="Red" HorizontalAlignment="Center"/>
+	</StackPanel>
+		</Border>
+	</Grid>
 </Window>
