@@ -1,6 +1,7 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:TrainingHub.ViewModels"
+		xmlns:views="using:TrainingHub.Views"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -8,7 +9,6 @@
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/TrainingHubLogo.png"
         Title="TrainingHub">
-
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
@@ -22,14 +22,91 @@
 				BorderBrush="{DynamicResource ThemeBorderLowBrush}"
 				BorderThickness="1">
 
-	<StackPanel Spacing="10" Width="320" HorizontalAlignment="Center" VerticalAlignment="Center">
-		<Image Source="/Assets/TrainingHubLogo.png" Width="220" HorizontalAlignment="Center"/>
-		<TextBlock Text="Enter your Credentials" FontSize="14" Opacity="0.75" HorizontalAlignment="Center"/>
-		<TextBox Watermark="Username" Text="{Binding Username}" Width="300"/>
-		<TextBox Watermark="Password" PasswordChar="*" Text="{Binding Password}" Width="300"/>
-		<Button Content="Login" HorizontalAlignment="Center"/>
-		<TextBlock Text="{Binding Message}" Foreground="Red" HorizontalAlignment="Center"/>
-	</StackPanel>
-		</Border>
-	</Grid>
-</Window>
+		<StackPanel Spacing="10" Width="320" HorizontalAlignment="Center" VerticalAlignment="Center">
+			<Image Source="/Assets/TrainingHubLogo.png" Width="220" HorizontalAlignment="Center"/>
+			<TextBlock Text="Enter your Credentials" FontSize="14" Opacity="0.75" HorizontalAlignment="Center"/>
+			<TextBox Watermark="Username" Text="{Binding Username}" Width="300"/>
+			<TextBox Watermark="Password" PasswordChar="*" Text="{Binding Password}" Width="300"/>
+			<Button Content="Login" Command="{Binding LoginCommand}" HorizontalAlignment="Center"/>
+			<TextBlock Text="{Binding Message}" Foreground="Red" HorizontalAlignment="Center"/>
+		</StackPanel>
+			</Border>
+			<Grid IsVisible="{Binding ShowDashboard}" ColumnDefinitions="220,*" Background="#F6F7F9">
+				
+				<!-- Sidebar -->
+
+				<Border Grid.Column="0"	Background="#F2F3F5" BorderBrush="#E6E6E6" BorderThickness="0,0,1,0">
+					<StackPanel Margin="16" Spacing="14">
+						<TextBlock Text="TrainingHub" FontSize="18"	FontWeight="SemiBold" Margin="0,4,0,8"/>
+
+						<StackPanel Spacing="8">
+
+							<!-- Navigation Buttons -->
+
+							<Button HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="0" Padding="8" 	HorizontalContentAlignment="Left">
+								<StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+									<Border Width="10" Height="10" CornerRadius="5" Background="#D6D6D6"/>
+									<TextBlock Text="Dashboard" VerticalAlignment="Center"/>
+								</StackPanel>
+							</Button>
+
+							<Button HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="0" Padding="8" HorizontalContentAlignment="Left">
+								<StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+									<Border Width="10" Height="10" CornerRadius="5" Background="#D6D6D6"/>
+									<TextBlock Text="Employees" VerticalAlignment="Center"/>
+								</StackPanel>
+							</Button>
+
+							<Button HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="0" Padding="8" HorizontalContentAlignment="Left">
+								<StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+									<Border Width="10" Height="10" CornerRadius="5" Background="#D6D6D6"/>
+									<TextBlock Text="Courses" VerticalAlignment="Center"/>
+								</StackPanel>
+							</Button>
+
+							<Button HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="0" Padding="8" HorizontalContentAlignment="Left">
+								<StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+									<Border Width="10" Height="10" CornerRadius="5" Background="#D6D6D6"/>
+									<TextBlock Text="Expenses" VerticalAlignment="Center"/>
+								</StackPanel>
+							</Button>
+
+							<Button HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="0" Padding="8" HorizontalContentAlignment="Left" Margin="0,12,0,0" Command="{Binding LogoutCommand}">
+							<StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+								<Border Width="10" Height="10" CornerRadius="5" Background="#D6D6D6"/>
+								<TextBlock Text="Logout" VerticalAlignment="Center"/>
+							</StackPanel>
+							</Button>
+
+						</StackPanel>
+						</StackPanel>
+					</Border>
+
+					<!-- Content -->
+					<Grid Grid.Column="1" RowDefinitions="64,*">
+
+						<!-- Header -->
+						<Border Grid.Row="0"
+								Background="White"
+								BorderBrush="#E6E6E6"
+								BorderThickness="0,0,0,1">
+							<DockPanel Margin="16,0" VerticalAlignment="Center">
+								<TextBlock DockPanel.Dock="Right"
+										Text="{Binding HeaderDateText}"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"/>
+							</DockPanel>
+						</Border>
+
+						<Grid Grid.Row="1" Margin="16">
+						<views:DashboardView/>
+						<views:EmployeesView IsVisible="False"/>
+						<views:CoursesView IsVisible="False"/>
+						<views:ExpensesView IsVisible="False"/>
+						</Grid>
+
+
+				</Grid>
+			</Grid>
+		</Grid>
+	</Window>
