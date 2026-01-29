@@ -1,14 +1,105 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="TrainingHub.Views.ExpensesView">
-<Border Background="White"
-          CornerRadius="12"
-          BorderBrush="#E6E6E6"
-          BorderThickness="1"
-          Padding="16">
-    <TextBlock Text="Expenses - Page under construction" FontSize="18" FontWeight="SemiBold"/>
-  </Border>
+             xmlns:vm="using:TrainingHub.ViewModels"
+             x:Class="TrainingHub.Views.ExpensesView"
+             x:DataType="vm:ExpensesViewModel">
+
+
+
+	<Grid RowDefinitions="Auto,Auto,*" RowSpacing="12" Margin="20">
+
+		<TextBlock Text="Expenses" FontSize="20" FontWeight="SemiBold"/>
+
+		<!-- Filter + Summary -->
+		<Border Grid.Row="1"
+				Background="White"
+				CornerRadius="12"
+				BorderBrush="#E6E6E6"
+				BorderThickness="1"
+				Padding="12">
+			<DockPanel>
+
+				<StackPanel DockPanel.Dock="Left" Spacing="6">
+					<TextBlock Text="Month" FontWeight="SemiBold"/>
+					<ComboBox Width="140"
+							  ItemsSource="{Binding ExpenseMonths}"
+							  SelectedItem="{Binding SelectedExpenseMonth}"/>
+				</StackPanel>
+
+				<StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Spacing="4">
+					<TextBlock Text="Total (selected month)" Opacity="0.7" HorizontalAlignment="Right"/>
+					<TextBlock Text="{Binding MonthlyExpenseTotal, StringFormat=€ {0:0.00}}"
+							   FontSize="18"
+							   FontWeight="SemiBold"
+							   HorizontalAlignment="Right"/>
+				</StackPanel>
+
+			</DockPanel>
+		</Border>
+
+		<!-- Content -->
+		<ScrollViewer Grid.Row="2">
+			<StackPanel Spacing="12">
+
+				<!-- Trainer Payment Calculator -->
+				<Border Background="White"
+						CornerRadius="12"
+						BorderBrush="#E6E6E6"
+						BorderThickness="1"
+						Padding="12">
+
+					<StackPanel Spacing="10">
+						<TextBlock Text="Trainer payment calculator" FontWeight="SemiBold"/>
+
+						<Grid ColumnDefinitions="*,12,*">
+							<StackPanel Grid.Column="0" Spacing="6">
+								<TextBlock Text="From" Opacity="0.7"/>
+								<DatePicker SelectedDate="{Binding CalcStartDate}"/>
+							</StackPanel>
+
+							<StackPanel Grid.Column="2" Spacing="6">
+								<TextBlock Text="To" Opacity="0.7"/>
+								<DatePicker SelectedDate="{Binding CalcEndDate}"/>
+							</StackPanel>
+						</Grid>
+
+						<StackPanel Spacing="6">
+							<TextBlock Text="Trainer" Opacity="0.7"/>
+							<ComboBox ItemsSource="{Binding Trainers}"
+									  SelectedItem="{Binding SelectedTrainerForCalc}">
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<StackPanel Orientation="Horizontal" Spacing="6">
+											<TextBlock Text="{Binding FirstName}"/>
+											<TextBlock Text="{Binding LastName}"/>
+											<TextBlock Text=" - " Opacity="0.6"/>
+											<TextBlock Text="{Binding TeachingSubject}" Opacity="0.8"/>
+										</StackPanel>
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+						</StackPanel>
+
+						<DockPanel Margin="0,6,0,0">
+							<Button DockPanel.Dock="Left"
+									Content="Calculate"
+									Command="{Binding CalculatePaymentCommand}"
+									Width="120"/>
+
+							<StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Spacing="2">
+								<TextBlock Text="Estimated payment" Opacity="0.7" HorizontalAlignment="Right"/>
+								<TextBlock Text="{Binding CalculatedPayment, StringFormat=€ {0:0.00}}"
+										   FontSize="18"
+										   FontWeight="SemiBold"
+										   HorizontalAlignment="Right"/>
+							</StackPanel>
+						</DockPanel>
+
+					</StackPanel>
+				</Border>
+
+			</StackPanel>
+		</ScrollViewer>
+
+	</Grid>
 </UserControl>

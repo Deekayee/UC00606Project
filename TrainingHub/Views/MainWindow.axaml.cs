@@ -1,4 +1,6 @@
 using Avalonia.Controls;
+using TrainingHub.ViewModels;
+
 
 namespace TrainingHub.Views;
 

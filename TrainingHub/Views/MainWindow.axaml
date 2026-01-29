@@ -34,6 +34,7 @@
 			<Grid IsVisible="{Binding ShowDashboard}" ColumnDefinitions="220,*" Background="#F6F7F9">
 				
 				<!-- Sidebar -->
+				<TextBlock Text="{Binding CurrentPage}" />
 
 				<Border Grid.Column="0"	Background="#F2F3F5" BorderBrush="#E6E6E6" BorderThickness="0,0,1,0">
 					<StackPanel Margin="16" Spacing="14">
@@ -43,28 +44,28 @@
 
 							<!-- Navigation Buttons -->
 
-							<Button HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="0" Padding="8" 	HorizontalContentAlignment="Left">
+							<Button HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="0" Padding="8" 	HorizontalContentAlignment="Left" Command="{Binding GoDashboardCommand}">
 								<StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
 									<Border Width="10" Height="10" CornerRadius="5" Background="#D6D6D6"/>
 									<TextBlock Text="Dashboard" VerticalAlignment="Center"/>
 								</StackPanel>
 							</Button>
 
-							<Button HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="0" Padding="8" HorizontalContentAlignment="Left">
+							<Button HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="0" Padding="8" HorizontalContentAlignment="Left" Command="{Binding GoEmployeesCommand}">
 								<StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
 									<Border Width="10" Height="10" CornerRadius="5" Background="#D6D6D6"/>
 									<TextBlock Text="Employees" VerticalAlignment="Center"/>
 								</StackPanel>
 							</Button>
 
-							<Button HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="0" Padding="8" HorizontalContentAlignment="Left">
+							<Button HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="0" Padding="8" HorizontalContentAlignment="Left" Command="{Binding GoCoursesCommand}">
 								<StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
 									<Border Width="10" Height="10" CornerRadius="5" Background="#D6D6D6"/>
 									<TextBlock Text="Courses" VerticalAlignment="Center"/>
 								</StackPanel>
 							</Button>
 
-							<Button HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="0" Padding="8" HorizontalContentAlignment="Left">
+							<Button HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="0" Padding="8" HorizontalContentAlignment="Left" Command="{Binding GoExpensesCommand}">
 								<StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
 									<Border Width="10" Height="10" CornerRadius="5" Background="#D6D6D6"/>
 									<TextBlock Text="Expenses" VerticalAlignment="Center"/>
@@ -98,15 +99,30 @@
 							</DockPanel>
 						</Border>
 
-						<Grid Grid.Row="1" Margin="16">
-						<views:DashboardView/>
-						<views:EmployeesView IsVisible="False"/>
-						<views:CoursesView IsVisible="False"/>
-						<views:ExpensesView IsVisible="False"/>
-						</Grid>
+			<Grid Grid.Row="1" Margin="16">
 
+				<!-- Dashboard -->
+				<Grid IsVisible="{Binding IsDashboardVisible}">
+					<views:DashboardView DataContext="{Binding Dashboard}" />
+				</Grid>
+
+				<!-- Employees -->
+				<Grid IsVisible="{Binding IsEmployeesVisible}">
+					<views:EmployeesView DataContext="{Binding Employees}" />
+				</Grid>
+
+				<!-- Courses -->
+				<Grid IsVisible="{Binding IsCoursesVisible}">
+					<views:CoursesView />
+				</Grid>
+
+				<!-- Expenses -->
+				<Grid IsVisible="{Binding IsExpensesVisible}">
+					<views:ExpensesView DataContext="{Binding Expenses}" />
+				</Grid>
 
 				</Grid>
+				</Grid>
+				</Grid>
 			</Grid>
-		</Grid>
-	</Window>
+		</Window>
