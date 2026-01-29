@@ -2,7 +2,7 @@
 
 using TrainingHub.ViewModels;
 
-namespace ViewModels;
+namespace TrainingHub.ViewModels;
 
 public class EmployeesViewModel : ViewModelBase
 {
