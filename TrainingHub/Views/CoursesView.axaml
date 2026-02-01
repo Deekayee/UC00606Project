@@ -2,13 +2,214 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TrainingHub.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="TrainingHub.Views.CoursesView">
-<Border Background="White"
-          CornerRadius="12"
-          BorderBrush="#E6E6E6"
-          BorderThickness="1"
-          Padding="16">
-    <TextBlock Text="Courses - Page under construction" FontSize="18" FontWeight="SemiBold"/>
-  </Border>
+             x:Class="TrainingHub.Views.CoursesView"
+             x:DataType="vm:CoursesViewModel">
+
+    <!--  ROOT GRID: Permite sobreposição de camadas (Conteúdo + Modal)  -->
+    <Grid>
+
+        <!--  CAMADA 1: Conteúdo Principal da Página  -->
+        <Grid Margin="20" RowDefinitions="Auto,*">
+
+            <!--  LINHA 0: Botão de Adicionar  -->
+            <StackPanel
+                Grid.Row="0"
+                Margin="0,0,0,20"
+                HorizontalAlignment="Right">
+                <Button
+                    Command="{Binding OpenAddCourseCommand}"
+                    Content="Add Course" />
+            </StackPanel>
+
+
+            <!--  LINHA 1: Tabela de Cursos  -->
+            <Border
+                Grid.Row="1"
+                Padding="16"
+                Background="White"
+                CornerRadius="12">
+
+                <Grid RowDefinitions="Auto,*">
+
+                    <!--  CABEÇALHO DA TABELA  -->
+                    <Grid
+                        Grid.Row="0"
+                        Margin="0,0,0,8"
+                        ColumnDefinitions="2*,1.5*,120,120,1.5*,180">
+
+                        <TextBlock
+                            Grid.Column="0"
+                            FontWeight="SemiBold"
+                            Text="Course Name"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            Grid.Column="1"
+                            FontWeight="SemiBold"
+                            Text="Area"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            Grid.Column="2"
+                            FontWeight="SemiBold"
+                            Text="Start Date"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            Grid.Column="3"
+                            FontWeight="SemiBold"
+                            Text="End Date"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            Grid.Column="4"
+                            FontWeight="SemiBold"
+                            Text="Trainer"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            Grid.Column="5"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,20,0"
+                            FontWeight="SemiBold"
+                            Text="Actions"
+                            VerticalAlignment="Center" />
+                    </Grid>
+
+                    <!--  LISTA DE CURSOS (ItemsControl)  -->
+                    <ScrollViewer Grid.Row="1">
+                        <ItemsControl ItemsSource="{Binding Courses}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Padding="0,8"
+                                        BorderBrush="#E6E6E6"
+                                        BorderThickness="0,1,0,0">
+                                        <Grid ColumnDefinitions="2*,1.5*,120,120,1.5*,180">
+                                            <TextBlock
+                                                Grid.Column="0"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding CourseName}" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding Area}" />
+                                            <TextBlock
+                                                Grid.Column="2"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}" />
+                                            <TextBlock
+                                                Grid.Column="3"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}" />
+                                            <TextBlock
+                                                Grid.Column="4"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding Trainer.FullName}" />
+                                            
+                                            <!-- Ações (Placeholder) -->
+                                            <StackPanel Grid.Column="5" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+                                                 <Button Content="Edit" />
+                                                 <Button Content="Remove" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                </Grid>
+            </Border>
+
+        </Grid>
+
+
+        <!--  CAMADA 2: MODAL (Overlay)  -->
+        <!--  Só aparece se IsAddingCourse for True  -->
+        <Grid IsVisible="{Binding IsAddingCourse}">
+
+            <!--  Fundo Escuro Semi-Transparente  -->
+            <!--  Bloqueia cliques na camada de baixo  -->
+            <Border Background="Black" Opacity="0.4" />
+
+            <!--  Janela do Modal (Centralizada)  -->
+            <Border
+                MinWidth="550"
+                Padding="24"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="White"
+                BoxShadow="0 4 20 0 #40000000"
+                CornerRadius="12">
+
+                <StackPanel Spacing="16">
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="New Course" />
+
+                    <!--  Campos do Formulário  -->
+                    <StackPanel Spacing="4">
+                        <TextBlock FontSize="12" Text="Course Name" />
+                        <TextBox Text="{Binding NewCourseName}" Watermark="Ex: C# Advanced" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="4">
+                        <TextBlock FontSize="12" Text="Area" />
+                        <TextBox Text="{Binding NewCourseArea}" Watermark="Ex: Development" />
+                    </StackPanel>
+
+                    <Grid ColumnDefinitions="*,16,*">
+                        <StackPanel Grid.Column="0" Spacing="4">
+                            <TextBlock FontSize="12" Text="Start Date" />
+                            <DatePicker HorizontalAlignment="Stretch" SelectedDate="{Binding NewStartDate}" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Spacing="4">
+                            <TextBlock FontSize="12" Text="End Date" />
+                            <DatePicker HorizontalAlignment="Stretch" SelectedDate="{Binding NewEndDate}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Spacing="4">
+                        <TextBlock FontSize="12" Text="Trainer" />
+                        <ComboBox
+                            HorizontalAlignment="Stretch"
+                            ItemsSource="{Binding Trainers}"
+                            PlaceholderText="Select a Trainer..."
+                            SelectedItem="{Binding SelectedNewTrainer}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding FullName}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <TextBlock 
+                        Text="{Binding ErrorMessage}" 
+                        Foreground="Red"
+                        FontWeight="SemiBold"
+                        HorizontalAlignment="Right"
+                        TextWrapping="Wrap" />
+                    
+                    <!--  Botões de Ação  -->
+                    <StackPanel
+                        Margin="0,16,0,0"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal"
+                        Spacing="12">
+                        <Button
+                            Command="{Binding CancelAddCourseCommand}"
+                            Content="Cancel" />
+                        <Button
+                            Command="{Binding SaveCourseCommand}"
+                            Content="Save Course" />
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+
+        </Grid>
+
+    </Grid>
+
 </UserControl>
