@@ -11,9 +11,11 @@ namespace TrainingHub.ViewModels;
 
 public partial class DashboardViewModel : ViewModelBase
 {
+    // Dependencies
     private readonly Company _company;
     private readonly IDateProvider _dateProvider;
 
+    // Main stats for the cards
     [ObservableProperty] private int _totalEmployees;
     [ObservableProperty] private int _activeContracts;
     [ObservableProperty] private int _expiredCriminalRecords;
@@ -21,6 +23,7 @@ public partial class DashboardViewModel : ViewModelBase
     [ObservableProperty] private int _activeCourses;
     [ObservableProperty] private int _totalCourses;
     
+    // Subtexts for the cards
     [ObservableProperty] private string _totalEmployeesSubtext = string.Empty;
     [ObservableProperty] private string _activeContractsSubtext = string.Empty;
     [ObservableProperty] private string _expiredCriminalRecordsSubtext = string.Empty;
@@ -30,6 +33,7 @@ public partial class DashboardViewModel : ViewModelBase
     private decimal _previousMonthExpenses;
     
     public ObservableCollection<string> Notifications { get; } = new();
+
 
     public DashboardViewModel(Company company, IDateProvider dateProvider)
     {
@@ -41,6 +45,7 @@ public partial class DashboardViewModel : ViewModelBase
         UpdateStats();
     }
 
+    // Update stats based on current date
     private void UpdateStats()
     {
         DateTime today = _dateProvider.Today;
@@ -67,6 +72,7 @@ public partial class DashboardViewModel : ViewModelBase
         var coordinators = _company.Employees.OfType<Coordinator>().Count();
         var secretaries = _company.Employees.OfType<Secretary>().Count();
         
+        // Formatting the subtext to show breakdown by type
         var typeParts = new List<string>();
         if (trainers > 0) typeParts.Add($"{trainers} Trainer{(trainers > 1 ? "s" : "")}");
         if (directors > 0) typeParts.Add($"{directors} Director{(directors > 1 ? "s" : "")}");

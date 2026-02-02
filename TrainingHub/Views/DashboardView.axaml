@@ -27,7 +27,6 @@
                     <StackPanel Spacing="10">
                         <TextBlock Text="Active Contracts" FontWeight="Bold" Foreground="#333333"/>
                         <TextBlock Text="{Binding ActiveContracts}" FontSize="32" FontWeight="ExtraBold" Foreground="Black"/>
-                         <!-- Placeholder subtitle as per design, maybe ratio later -->
                          <TextBlock Text="{Binding ActiveContractsSubtext}" FontSize="12" Foreground="#888888"/>
                     </StackPanel>
                 </Border>
