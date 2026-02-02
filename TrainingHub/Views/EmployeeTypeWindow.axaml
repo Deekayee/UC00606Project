@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TrainingHub.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="200"
+        x:Class="TrainingHub.Views.EmployeeTypeWindow"
+        x:DataType="vm:AddEmployeeTypeViewModel"
+        Title="Select Employee Type"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+
+  <StackPanel Spacing="20" Margin="20">
+    <TextBlock Text="Select the type of employee:" />
+    
+    <ComboBox ItemsSource="{Binding EmployeeTypes}" 
+              SelectedItem="{Binding SelectedType}" 
+              HorizontalAlignment="Stretch"/>
+
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+      <Button Content="OK" Click="OkButton_Click" IsDefault="True"/>
+      <Button Content="Cancel" Click="CancelButton_Click" IsCancel="True"/>
+    </StackPanel>
+  </StackPanel>
+</Window>

@@ -12,19 +12,19 @@ namespace TrainingHub.Services
         public static void Seed(Company company)
         {
             var d1 = new Director(
-           id: 1,
-           firstName: "Ana",
-           lastName: "Silva",
-           address: "Rua A",
-           phoneNumber: "910000001",
-           contractStartDate: new DateTime(2025, 1, 1),
-           contractEndDate: new DateTime(2026, 12, 31),
-           criminalRecordEndDate: new DateTime(2027, 1, 1),
-           salaryBase: 1600m,
-           flexibleHours: true,
-           monthlyBonus: 200m,
-           companyCar: true
-       );
+                id: 1,
+                firstName: "Ana",
+                lastName: "Silva",
+                address: "Rua A",
+                phoneNumber: "910000001",
+                contractStartDate: new DateTime(2025, 1, 1),
+                contractEndDate: new DateTime(2026, 12, 31),
+                criminalRecordEndDate: new DateTime(2027, 1, 1),
+                salaryBase: 1600m,
+                flexibleHours: true,
+                monthlyBonus: 200m,
+                companyCar: true
+            );
 
             var s1 = new Secretary(
                 id: 2,
@@ -33,7 +33,7 @@ namespace TrainingHub.Services
                 address: "Rua B",
                 phoneNumber: "910000002",
                 contractStartDate: new DateTime(2025, 6, 1),
-                contractEndDate: new DateTime(2026, 6, 30),
+                contractEndDate: new DateTime(2026, 1, 28),
                 criminalRecordEndDate: new DateTime(2026, 12, 1),
                 salaryBase: 1100m,
                 reportsToDirector: d1,
