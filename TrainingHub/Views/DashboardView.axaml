@@ -18,7 +18,7 @@
                     <StackPanel Spacing="10">
                         <TextBlock Text="Total Employees" FontWeight="Bold" Foreground="#333333"/>
                         <TextBlock Text="{Binding TotalEmployees}" FontSize="32" FontWeight="ExtraBold" Foreground="Black"/>
-                        <TextBlock Text="Total active employees" FontSize="12" Foreground="#888888"/>
+                        <TextBlock Text="{Binding TotalEmployeesSubtext}" FontSize="12" Foreground="#888888"/>
                     </StackPanel>
                 </Border>
                 

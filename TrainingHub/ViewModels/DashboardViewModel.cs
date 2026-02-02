@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -20,6 +21,7 @@ public partial class DashboardViewModel : ViewModelBase
     [ObservableProperty] private int _activeCourses;
     [ObservableProperty] private int _totalCourses;
     
+    [ObservableProperty] private string _totalEmployeesSubtext = string.Empty;
     [ObservableProperty] private string _activeContractsSubtext = string.Empty;
     [ObservableProperty] private string _expiredCriminalRecordsSubtext = string.Empty;
     [ObservableProperty] private string _activeCoursesSubtext = string.Empty;
@@ -59,6 +61,20 @@ public partial class DashboardViewModel : ViewModelBase
     
     private void UpdateSubtexts(DateTime today)
     {
+        // Total Employees Subtext - Show breakdown by type
+        var trainers = _company.Employees.OfType<Trainer>().Count();
+        var directors = _company.Employees.OfType<Director>().Count();
+        var coordinators = _company.Employees.OfType<Coordinator>().Count();
+        var secretaries = _company.Employees.OfType<Secretary>().Count();
+        
+        var typeParts = new List<string>();
+        if (trainers > 0) typeParts.Add($"{trainers} Trainer{(trainers > 1 ? "s" : "")}");
+        if (directors > 0) typeParts.Add($"{directors} Director{(directors > 1 ? "s" : "")}");
+        if (coordinators > 0) typeParts.Add($"{coordinators} Coordinator{(coordinators > 1 ? "s" : "")}");
+        if (secretaries > 0) typeParts.Add($"{secretaries} Secretar{(secretaries > 1 ? "ies" : "y")}");
+        
+        TotalEmployeesSubtext = typeParts.Count > 0 ? string.Join(", ", typeParts) : "No employees";
+        
         // Active Contracts Subtext
         if (TotalEmployees > 0)
         {
