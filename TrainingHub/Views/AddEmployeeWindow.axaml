@@ -1,0 +1,79 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TrainingHub.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="600"
+        x:Class="TrainingHub.Views.AddEmployeeWindow"
+        x:DataType="vm:AddEmployeeViewModel"
+        Title="Add Employee"
+        SizeToContent="Height"
+        Width="500"
+        WindowStartupLocation="CenterOwner">
+
+  <ScrollViewer>
+    <StackPanel Spacing="15" Margin="20">
+      <TextBlock Text="{Binding EmployeeType, StringFormat='Adding New {0}'}" FontSize="18" FontWeight="Bold"/>
+
+        <!-- Common Fields -->
+        <TextBox Text="{Binding FirstName}" Watermark="First Name"/>
+        <TextBox Text="{Binding LastName}" Watermark="Last Name"/>
+        <TextBox Text="{Binding Address}" Watermark="Address"/>
+        <TextBox Text="{Binding PhoneNumber}" Watermark="Phone Number"/>
+        
+        <StackPanel Spacing="5" IsVisible="{Binding IsNotTrainer}">
+            <TextBlock Text="Salary Base"/>
+            <NumericUpDown Value="{Binding SalaryBase}" FormatString="C"/>
+        </StackPanel>
+
+        <StackPanel Spacing="5">
+            <TextBlock Text="Contract Start"/>
+            <DatePicker SelectedDate="{Binding ContractStartDate}"/>
+        </StackPanel>
+        
+        <StackPanel Spacing="5">
+              <TextBlock Text="Contract End"/>
+              <DatePicker SelectedDate="{Binding ContractEndDate}"/>
+        </StackPanel>
+        
+        <StackPanel Spacing="5">
+              <TextBlock Text="Criminal Record Check End"/>
+              <DatePicker SelectedDate="{Binding CriminalRecordEndDate}"/>
+        </StackPanel>
+
+      <!-- Trainer Fields -->
+      <StackPanel IsVisible="{Binding IsTrainer}" Spacing="15">
+        <TextBox Text="{Binding Subject}" Watermark="Subject"/>
+        <StackPanel Spacing="5">
+             <TextBlock Text="Hourly Rate"/>
+             <NumericUpDown Value="{Binding Rate}" FormatString="C"/>
+        </StackPanel>
+      </StackPanel>
+
+      <!-- Secretary Fields -->
+      <StackPanel IsVisible="{Binding IsSecretary}" Spacing="15">
+         <TextBox Text="{Binding Area}" Watermark="Area"/>
+      </StackPanel>
+
+      <!-- Coordinator Fields -->
+      <StackPanel IsVisible="{Binding IsCoordinator}" Spacing="15">
+          <TextBox Text="{Binding CoordinationArea}" Watermark="Coordination Area"/>
+      </StackPanel>
+
+      <!-- Director Fields -->
+      <StackPanel IsVisible="{Binding IsDirector}" Spacing="15">
+           <CheckBox IsChecked="{Binding FlexibleHours}" Content="Flexible Hours"/>
+           <CheckBox IsChecked="{Binding CompanyCar}" Content="Company Car"/>
+           <StackPanel Spacing="5">
+                <TextBlock Text="Monthly Bonus"/>
+                <NumericUpDown Value="{Binding MonthlyBonus}" FormatString="C"/>
+           </StackPanel>
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0,20,0,0">
+        <Button Content="Save" Click="SaveButton_Click" IsDefault="True"/>
+        <Button Content="Cancel" Click="CancelButton_Click" IsCancel="True"/>
+      </StackPanel>
+    </StackPanel>
+  </ScrollViewer>
+</Window>
