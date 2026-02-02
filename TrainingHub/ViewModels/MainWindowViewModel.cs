@@ -44,9 +44,11 @@ public partial class MainWindowViewModel : ViewModelBase
         _dateProvider = new DateProvider();
         _company = new Company(_dateProvider);
         
+        _dateProvider.DateChanged += () => OnPropertyChanged(nameof(HeaderDateText));
+        
         DemoSeeder.Seed(_company);
 
-        Dashboard = new DashboardViewModel();
+        Dashboard = new DashboardViewModel(_company, _dateProvider);
         Expenses = new ExpensesViewModel(_company, _dateProvider);
         Employees = new EmployeesViewModel(_company, dialogService);
     }
