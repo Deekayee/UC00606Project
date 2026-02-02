@@ -35,8 +35,8 @@ public partial class MainWindowViewModel : ViewModelBase
     public bool IsExpensesVisible => CurrentPage == "Expenses";
 
     public ExpensesViewModel Expenses { get; }
-    public EmployeesViewModel Employees { get; }
-    public CoursesViewModel Courses { get; }
+    public EmployeesViewModel Employees { get; } = new();
+    public CoursesViewModel Courses { get; } = new();
     public DashboardViewModel Dashboard { get; }
 
     public MainWindowViewModel()
@@ -48,8 +48,6 @@ public partial class MainWindowViewModel : ViewModelBase
 
         Dashboard = new DashboardViewModel();
         Expenses = new ExpensesViewModel(_company, _dateProvider);
-        Courses = new CoursesViewModel(_company, _dateProvider);
-        Employees = new EmployeesViewModel(_company);
     }
 
     partial void OnIsLoggedInChanged(bool value)

@@ -33,7 +33,7 @@ namespace TrainingHub.Services
                 address: "Rua B",
                 phoneNumber: "910000002",
                 contractStartDate: new DateTime(2025, 6, 1),
-                contractEndDate: new DateTime(2026, 1, 28),
+                contractEndDate: new DateTime(2026, 6, 30),
                 criminalRecordEndDate: new DateTime(2026, 12, 1),
                 salaryBase: 1100m,
                 reportsToDirector: d1,

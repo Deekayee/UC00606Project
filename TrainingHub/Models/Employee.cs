@@ -16,8 +16,6 @@ public abstract class Employee
     public DateTime CriminalRecordEndDate { get; set; }
     public decimal SalaryBase { get; set; }
 
-    public string FullName => $"{FirstName} {LastName}";
-
     // Constructors
 
     // Default constructor
