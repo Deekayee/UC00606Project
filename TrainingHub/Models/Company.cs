@@ -10,6 +10,7 @@ public class Company
     // Dependency Injection of IDateProvider
     
     private readonly IDateProvider _dateProvider;
+    private int _nextEmployeeId = 1;
 
     
     // Employee and Course Lists
@@ -30,6 +31,7 @@ public class Company
     
     public void AddEmployee(Employee employee)
     {
+        employee.Id = _nextEmployeeId++;
         Employees.Add(employee);
     }
 
