@@ -18,6 +18,14 @@ public partial class DashboardViewModel : ViewModelBase
     [ObservableProperty] private int _expiredCriminalRecords;
     [ObservableProperty] private decimal _totalMonthlyExpenses;
     [ObservableProperty] private int _activeCourses;
+    [ObservableProperty] private int _totalCourses;
+    
+    [ObservableProperty] private string _activeContractsSubtext = string.Empty;
+    [ObservableProperty] private string _expiredCriminalRecordsSubtext = string.Empty;
+    [ObservableProperty] private string _activeCoursesSubtext = string.Empty;
+    [ObservableProperty] private string _expensesSubtext = string.Empty;
+    
+    private decimal _previousMonthExpenses;
     
     public ObservableCollection<string> Notifications { get; } = new();
 
@@ -43,8 +51,71 @@ public partial class DashboardViewModel : ViewModelBase
         
         // Active Courses: Start <= Today <= End
         ActiveCourses = _company.Courses.Count(c => c.StartDate.Date <= today && c.EndDate.Date >= today);
-
+        TotalCourses = _company.Courses.Count;
+        
+        UpdateSubtexts(today);
         UpdateNotifications(today);
+    }
+    
+    private void UpdateSubtexts(DateTime today)
+    {
+        // Active Contracts Subtext
+        if (TotalEmployees > 0)
+        {
+            double contractsPercentage = (double)ActiveContracts / TotalEmployees * 100;
+            ActiveContractsSubtext = $"{contractsPercentage:F0}% of total employees";
+        }
+        else
+        {
+            ActiveContractsSubtext = "No employees";
+        }
+        
+        // Expired Criminal Records Subtext
+        if (TotalEmployees > 0)
+        {
+            double expiredPercentage = (double)ExpiredCriminalRecords / TotalEmployees * 100;
+            ExpiredCriminalRecordsSubtext = $"{expiredPercentage:F0}% of total employees";
+        }
+        else
+        {
+            ExpiredCriminalRecordsSubtext = "No employees";
+        }
+        
+        // Active Courses Subtext
+        if (TotalCourses > 0)
+        {
+            double coursesPercentage = (double)ActiveCourses / TotalCourses * 100;
+            ActiveCoursesSubtext = $"{coursesPercentage:F0}% of total courses";
+        }
+        else
+        {
+            ActiveCoursesSubtext = "No courses";
+        }
+        
+        // Expenses Subtext - compare with previous month
+        if (_previousMonthExpenses > 0)
+        {
+            decimal difference = TotalMonthlyExpenses - _previousMonthExpenses;
+            double percentageChange = (double)(difference / _previousMonthExpenses * 100);
+            
+            if (percentageChange > 0)
+            {
+                ExpensesSubtext = $"{Math.Abs(percentageChange):F0}% more than last month";
+            }
+            else if (percentageChange < 0)
+            {
+                ExpensesSubtext = $"{Math.Abs(percentageChange):F0}% less than last month";
+            }
+            else
+            {
+                ExpensesSubtext = "Same as last month";
+            }
+        }
+        else
+        {
+            ExpensesSubtext = "First month data";
+            _previousMonthExpenses = TotalMonthlyExpenses;
+        }
     }
 
     private void UpdateNotifications(DateTime today)
@@ -98,6 +169,7 @@ public partial class DashboardViewModel : ViewModelBase
     [RelayCommand]
     private void AdvanceMonth()
     {
+        _previousMonthExpenses = TotalMonthlyExpenses;
         _dateProvider.AdvanceDays(30);
     }
 
