@@ -8,7 +8,9 @@
         x:Class="TrainingHub.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/TrainingHubLogo.png"
-        Title="TrainingHub">
+        Title="TrainingHub"
+		MinWidth="1000"
+        MinHeight="700">
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
@@ -113,7 +115,7 @@
 
 				<!-- Courses -->
 				<Grid IsVisible="{Binding IsCoursesVisible}">
-					<views:CoursesView />
+					<views:CoursesView DataContext="{Binding Courses}" />
 				</Grid>
 
 				<!-- Expenses -->
