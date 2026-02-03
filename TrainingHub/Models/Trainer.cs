@@ -55,14 +55,7 @@ public class Trainer : Employee
         // Method to calculate total trainer payments for courses starting in the current month
         public override decimal CalculateMonthlySalary()
         {
-            var nowDate = DateTime.Now;
-            var coursesThisMonth = AssignedCourses.Where(c => c.Trainer == this && c.StartDate.Month == nowDate.Month && c.StartDate.Year == nowDate.Year);
-            decimal total = 0m;
-            foreach (var c in coursesThisMonth)
-            {
-                total += c.CalculateTrainerPayment();
-            }
-            return total;
+            return SalaryBase;
         }
         // Method to represent the trainer as a string
         public override string ToString()
