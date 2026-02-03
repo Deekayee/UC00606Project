@@ -36,7 +36,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public ExpensesViewModel Expenses { get; }
     public EmployeesViewModel Employees { get; }
-    public CoursesViewModel Courses { get; } = new();
+    public CoursesViewModel Courses { get; }
     public DashboardViewModel Dashboard { get; }
 
     public MainWindowViewModel(IDialogService dialogService)
@@ -51,6 +51,7 @@ public partial class MainWindowViewModel : ViewModelBase
         Dashboard = new DashboardViewModel(_company, _dateProvider);
         Expenses = new ExpensesViewModel(_company, _dateProvider);
         Employees = new EmployeesViewModel(_company, dialogService);
+        Courses = new CoursesViewModel(_company, _dateProvider);
     }
 
     partial void OnIsLoggedInChanged(bool value)
