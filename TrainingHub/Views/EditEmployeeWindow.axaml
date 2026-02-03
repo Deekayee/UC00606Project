@@ -1,106 +1,121 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:TrainingHub.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="600"
-        x:Class="TrainingHub.Views.EditEmployeeWindow"
-        x:DataType="vm:EditEmployeeViewModel"
-        Title="Edit Employee"
-        SizeToContent="Height"
-        Width="500"
-        WindowStartupLocation="CenterOwner">
+<Window
+    x:Class="TrainingHub.Views.EditEmployeeWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:TrainingHub.ViewModels"
+    Title="Edit Employee"
+    Width="500"
+    d:DesignHeight="600"
+    d:DesignWidth="500"
+    x:DataType="vm:EditEmployeeViewModel"
+    SizeToContent="Height"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
 
-      <Design.DataContext>
-        <vm:EditEmployeeViewModel/>
-    </Design.DataContext>    
+    <Design.DataContext>
+        <vm:EditEmployeeViewModel />
+    </Design.DataContext>
     <ScrollViewer>
         <StackPanel Margin="20" Spacing="15">
-            <TextBlock Text="{Binding EmployeeType, StringFormat='Edit {0}'}" 
-                       FontSize="20" 
-                       FontWeight="Bold"/>
-
-            <!-- Common Fields -->
+            <TextBlock
+                FontSize="20"
+                FontWeight="Bold"
+                Text="{Binding EmployeeType, StringFormat='Edit {0}'}" />
+            <!--  Error Message  -->
+            <TextBlock
+                FontSize="14"
+                Foreground="Red"
+                IsVisible="{Binding HasError}"
+                Text="{Binding ErrorMessage}" />
+            <!--  Common Fields  -->
             <StackPanel Spacing="10">
-                <TextBlock Text="First Name"/>
-                <TextBox Text="{Binding FirstName}"/>
+                <TextBlock Text="First Name" />
+                <TextBox Text="{Binding FirstName}" />
 
-                <TextBlock Text="Last Name"/>
-                <TextBox Text="{Binding LastName}"/>
+                <TextBlock Text="Last Name" />
+                <TextBox Text="{Binding LastName}" />
 
-                <TextBlock Text="Address"/>
-                <TextBox Text="{Binding Address}"/>
+                <TextBlock Text="Address" />
+                <TextBox Text="{Binding Address}" />
 
-                <TextBlock Text="Phone Number"/>
-                <TextBox Text="{Binding PhoneNumber}"/>
+                <TextBlock Text="Phone Number" />
+                <TextBox Text="{Binding PhoneNumber}" />
 
-                <TextBlock Text="Contract Start Date"/>
-                <DatePicker SelectedDate="{Binding ContractStartDate}"/>
+                <TextBlock Text="Contract Start Date" />
+                <DatePicker SelectedDate="{Binding ContractStartDate}" />
 
-                <TextBlock Text="Contract End Date"/>
-                <DatePicker SelectedDate="{Binding ContractEndDate}"/>
+                <TextBlock Text="Contract End Date" />
+                <DatePicker SelectedDate="{Binding ContractEndDate}" />
 
-                <TextBlock Text="Criminal Record End Date"/>
-                <DatePicker SelectedDate="{Binding CriminalRecordEndDate}"/>
+                <TextBlock Text="Criminal Record End Date" />
+                <DatePicker SelectedDate="{Binding CriminalRecordEndDate}" />
 
-                <TextBlock Text="Base Salary"/>
-                <NumericUpDown Value="{Binding SalaryBase}" 
-                               Minimum="0" 
-                               Maximum="1000000"
-                               FormatString="C2"/>
+                <TextBlock Text="Base Salary" />
+                <NumericUpDown
+                    FormatString="C2"
+                    Maximum="1000000"
+                    Minimum="0"
+                    Value="{Binding SalaryBase}" />
             </StackPanel>
 
-            <!-- Trainer Specific -->
-            <StackPanel Spacing="10" IsVisible="{Binding IsTrainer}">
-                <TextBlock Text="Teaching Subject" FontWeight="SemiBold"/>
-                <TextBox Text="{Binding Subject}"/>
+            <!--  Trainer Specific  -->
+            <StackPanel IsVisible="{Binding IsTrainer}" Spacing="10">
+                <TextBlock FontWeight="SemiBold" Text="Teaching Subject" />
+                <TextBox Text="{Binding Subject}" />
 
-                <TextBlock Text="Hourly Rate"/>
-                <NumericUpDown Value="{Binding Rate}" 
-                               Minimum="0" 
-                               Maximum="10000"
-                               FormatString="C2"/>
+                <TextBlock Text="Hourly Rate" />
+                <NumericUpDown
+                    FormatString="C2"
+                    Maximum="10000"
+                    Minimum="0"
+                    Value="{Binding Rate}" />
             </StackPanel>
 
-            <!-- Secretary Specific -->
-            <StackPanel Spacing="10" IsVisible="{Binding IsSecretary}">
-                <TextBlock Text="Area" FontWeight="SemiBold"/>
-                <TextBox Text="{Binding Area}"/>
+            <!--  Secretary Specific  -->
+            <StackPanel IsVisible="{Binding IsSecretary}" Spacing="10">
+                <TextBlock FontWeight="SemiBold" Text="Area" />
+                <TextBox Text="{Binding Area}" />
             </StackPanel>
 
-            <!-- Coordinator Specific -->
-            <StackPanel Spacing="10" IsVisible="{Binding IsCoordinator}">
-                <TextBlock Text="Coordination Area" FontWeight="SemiBold"/>
-                <TextBox Text="{Binding CoordinationArea}"/>
+            <!--  Coordinator Specific  -->
+            <StackPanel IsVisible="{Binding IsCoordinator}" Spacing="10">
+                <TextBlock FontWeight="SemiBold" Text="Coordination Area" />
+                <TextBox Text="{Binding CoordinationArea}" />
             </StackPanel>
 
-            <!-- Director Specific -->
-            <StackPanel Spacing="10" IsVisible="{Binding IsDirector}">
-                <CheckBox Content="Flexible Hours" IsChecked="{Binding FlexibleHours}"/>
+            <!--  Director Specific  -->
+            <StackPanel IsVisible="{Binding IsDirector}" Spacing="10">
+                <CheckBox Content="Flexible Hours" IsChecked="{Binding FlexibleHours}" />
 
-                <TextBlock Text="Monthly Bonus"/>
-                <NumericUpDown Value="{Binding MonthlyBonus}" 
-                               Minimum="0" 
-                               Maximum="100000"
-                               FormatString="C2"/>
+                <TextBlock Text="Monthly Bonus" />
+                <NumericUpDown
+                    FormatString="C2"
+                    Maximum="100000"
+                    Minimum="0"
+                    Value="{Binding MonthlyBonus}" />
 
-                <CheckBox Content="Company Car" IsChecked="{Binding CompanyCar}"/>
+                <CheckBox Content="Company Car" IsChecked="{Binding CompanyCar}" />
             </StackPanel>
 
-            <!-- Buttons -->
-            <StackPanel Orientation="Horizontal" 
-                        HorizontalAlignment="Right" 
-                        Spacing="10"
-                        Margin="0,20,0,0">
-                <Button Content="Cancel" 
-                        Width="100"
-                        HorizontalContentAlignment="Center"
-                        Click="OnCancel"/>
-                <Button Content="Save" 
-                        Width="100"
-                        HorizontalContentAlignment="Center"
-                        Click="OnSave"
-                        Classes="accent"/>
+            <!--  Buttons  -->
+            <StackPanel
+                Margin="0,20,0,0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal"
+                Spacing="10">
+                <Button
+                    Width="100"
+                    HorizontalContentAlignment="Center"
+                    Click="OnCancel"
+                    Content="Cancel" />
+                <Button
+                    Width="100"
+                    HorizontalContentAlignment="Center"
+                    Classes="accent"
+                    Click="OnSave"
+                    Content="Save" />
             </StackPanel>
         </StackPanel>
     </ScrollViewer>

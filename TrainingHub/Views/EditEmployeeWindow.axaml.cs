@@ -20,6 +20,9 @@ namespace TrainingHub.Views
         {
             if (DataContext is EditEmployeeViewModel viewModel)
             {
+                if (!viewModel.Validate())
+                    return;
+
                 viewModel.UpdateEmployee();
                 Close(true);
             }
