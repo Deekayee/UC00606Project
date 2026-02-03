@@ -1,0 +1,105 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TrainingHub.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="600"
+        x:Class="TrainingHub.Views.EditEmployeeWindow"
+        x:DataType="vm:EditEmployeeViewModel"
+        Title="Edit Employee"
+        SizeToContent="Height"
+        Width="500"
+        WindowStartupLocation="CenterOwner">
+
+      <Design.DataContext>
+        <vm:EditEmployeeViewModel/>
+    </Design.DataContext>    
+    <ScrollViewer>
+        <StackPanel Margin="20" Spacing="15">
+            <TextBlock Text="{Binding EmployeeType, StringFormat='Edit {0}'}" 
+                       FontSize="20" 
+                       FontWeight="Bold"/>
+
+            <!-- Common Fields -->
+            <StackPanel Spacing="10">
+                <TextBlock Text="First Name"/>
+                <TextBox Text="{Binding FirstName}"/>
+
+                <TextBlock Text="Last Name"/>
+                <TextBox Text="{Binding LastName}"/>
+
+                <TextBlock Text="Address"/>
+                <TextBox Text="{Binding Address}"/>
+
+                <TextBlock Text="Phone Number"/>
+                <TextBox Text="{Binding PhoneNumber}"/>
+
+                <TextBlock Text="Contract Start Date"/>
+                <DatePicker SelectedDate="{Binding ContractStartDate}"/>
+
+                <TextBlock Text="Contract End Date"/>
+                <DatePicker SelectedDate="{Binding ContractEndDate}"/>
+
+                <TextBlock Text="Criminal Record End Date"/>
+                <DatePicker SelectedDate="{Binding CriminalRecordEndDate}"/>
+
+                <TextBlock Text="Base Salary"/>
+                <NumericUpDown Value="{Binding SalaryBase}" 
+                               Minimum="0" 
+                               Maximum="1000000"
+                               FormatString="C2"/>
+            </StackPanel>
+
+            <!-- Trainer Specific -->
+            <StackPanel Spacing="10" IsVisible="{Binding IsTrainer}">
+                <TextBlock Text="Teaching Subject" FontWeight="SemiBold"/>
+                <TextBox Text="{Binding Subject}"/>
+
+                <TextBlock Text="Hourly Rate"/>
+                <NumericUpDown Value="{Binding Rate}" 
+                               Minimum="0" 
+                               Maximum="10000"
+                               FormatString="C2"/>
+            </StackPanel>
+
+            <!-- Secretary Specific -->
+            <StackPanel Spacing="10" IsVisible="{Binding IsSecretary}">
+                <TextBlock Text="Area" FontWeight="SemiBold"/>
+                <TextBox Text="{Binding Area}"/>
+            </StackPanel>
+
+            <!-- Coordinator Specific -->
+            <StackPanel Spacing="10" IsVisible="{Binding IsCoordinator}">
+                <TextBlock Text="Coordination Area" FontWeight="SemiBold"/>
+                <TextBox Text="{Binding CoordinationArea}"/>
+            </StackPanel>
+
+            <!-- Director Specific -->
+            <StackPanel Spacing="10" IsVisible="{Binding IsDirector}">
+                <CheckBox Content="Flexible Hours" IsChecked="{Binding FlexibleHours}"/>
+
+                <TextBlock Text="Monthly Bonus"/>
+                <NumericUpDown Value="{Binding MonthlyBonus}" 
+                               Minimum="0" 
+                               Maximum="100000"
+                               FormatString="C2"/>
+
+                <CheckBox Content="Company Car" IsChecked="{Binding CompanyCar}"/>
+            </StackPanel>
+
+            <!-- Buttons -->
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Right" 
+                        Spacing="10"
+                        Margin="0,20,0,0">
+                <Button Content="Cancel" 
+                        Width="100"
+                        Click="OnCancel"/>
+                <Button Content="Save" 
+                        Width="100"
+                        Click="OnSave"
+                        Classes="accent"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Window>
