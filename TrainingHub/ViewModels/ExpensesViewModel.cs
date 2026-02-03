@@ -16,8 +16,6 @@ public partial class ExpensesViewModel : ViewModelBase
 
     // ===== UI Lists =====
     public ObservableCollection<string> ExpenseMonths { get; } = new();
-    public ObservableCollection<Employee> MonthlyEmployees { get; } = new();
-    public ObservableCollection<Course> MonthlyCourses { get; } = new();
 
     // ===== Totals / Filters =====
     [ObservableProperty] private string? selectedExpenseMonth;
@@ -78,9 +76,6 @@ public partial class ExpensesViewModel : ViewModelBase
 
     private void Refresh()
     {
-        MonthlyEmployees.Clear();
-        MonthlyCourses.Clear();
-
         MonthlyEmployeesTotal = 0m;
         MonthlyTrainersTotal = 0m;
         MonthlyExpenseTotal = 0m;
@@ -98,28 +93,13 @@ public partial class ExpensesViewModel : ViewModelBase
             e.ContractStartDate.Date <= monthEnd.Date &&
             e.ContractEndDate.Date >= monthStart.Date;
 
-        // 1) Payroll (exclui Trainers para não depender do CalculateMonthlySalary() deles, que usa DateTime.Now)
-        var employeesInMonth = _company.Employees
+        // 1) Payroll
+        MonthlyEmployeesTotal = _company.Employees
             .Where(OverlapsMonth)
-            .Where(e => e is not Trainer)
-            .OrderBy(e => e.LastName)
-            .ToList();
-
-        foreach (var e in employeesInMonth)
-            MonthlyEmployees.Add(e);
-
-        MonthlyEmployeesTotal = employeesInMonth.Sum(e => e.CalculateMonthlySalary());
+            .Sum(e => e.CalculateMonthlySalary());
 
         // 2) Pagamento a formadores: cursos que iniciam no mês selecionado
-        var coursesInMonth = _company.Courses
-            .Where(c => c.StartDate.Year == monthStart.Year && c.StartDate.Month == monthStart.Month)
-            .OrderBy(c => c.StartDate)
-            .ToList();
-
-        foreach (var c in coursesInMonth)
-            MonthlyCourses.Add(c);
-
-        MonthlyTrainersTotal = coursesInMonth.Sum(c => c.CalculateTrainerPayment());
+        MonthlyTrainersTotal = _company.CalculateTotalTrainerPayments(monthStart.Month, monthStart.Year);
 
         // Total do mês (Payroll + Trainers)
         MonthlyExpenseTotal = MonthlyEmployeesTotal + MonthlyTrainersTotal;
