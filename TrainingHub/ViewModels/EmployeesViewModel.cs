@@ -61,11 +61,22 @@ public partial class EmployeesViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void RemoveEmployee(EmployeeViewModel employee)
+    private async Task RemoveEmployee(EmployeeViewModel employeeViewModel)
     {
-        if (employee == null)
+        if (employeeViewModel == null)
             return;
+        // Show confirmation dialog
 
-        // TODO: confirm and remove employee
+        var confirmed = await _dialogService.ShowDeleteEmployeeDialogAsync(
+            "Delete Employee",
+            $"Are you sure you want to delete {employeeViewModel.FullName} ?\n\nThis action cannot be undone."
+        );
+
+        if (confirmed)
+        {
+            _company.RemoveEmployee(employeeViewModel.Employee);
+
+            Employees.Remove(employeeViewModel);
+        }
     }
 }
