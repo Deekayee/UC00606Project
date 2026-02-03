@@ -60,5 +60,16 @@ namespace TrainingHub.Services
             var result = await window.ShowDialog<bool>(mainWindow);
             return result;
         }
+
+        public async Task<bool> ShowDeleteEmployeeDialogAsync(string title, string message)
+        {
+            var mainWindow = GetMainWindow();
+            if (mainWindow == null)
+                return false;
+
+            var window = new DeleteEmployeeWindow(title, message);
+            var result = await window.ShowDialog<bool>(mainWindow);
+            return result;
+        }
     }
 }
