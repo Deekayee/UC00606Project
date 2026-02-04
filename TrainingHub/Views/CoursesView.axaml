@@ -35,7 +35,7 @@
                 <Grid
                     Grid.Row="0"
                     Margin="0,0,0,8"
-                    ColumnDefinitions="220,160,160,160,160,160">
+                    ColumnDefinitions="*,160,160,160,160,160">
 
                     <TextBlock Grid.Column="0" FontWeight="SemiBold" Text="Course Name" />
                     <TextBlock Grid.Column="1" FontWeight="SemiBold" Text="Area" />
@@ -58,7 +58,7 @@
                                     BorderThickness="0,1,0,0">
                                     <Grid
                                         MinHeight="32"
-                                        ColumnDefinitions="220,160,160,160,160,160">
+                                        ColumnDefinitions="*,160,160,160,160,160">
 
                                         <TextBlock Grid.Column="0" Text="{Binding CourseName}" />
                                         <TextBlock Grid.Column="1" Text="{Binding Area}" />
