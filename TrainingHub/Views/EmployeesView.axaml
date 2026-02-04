@@ -32,7 +32,7 @@
                 <Grid
                     Grid.Row="0"
                     Margin="0,0,0,8"
-                    ColumnDefinitions="60,220,160,160,160,80,160">
+                    ColumnDefinitions="60,*,140,140,140,140,60,250">
 
                     <TextBlock
                         Grid.Column="0"
@@ -50,29 +50,35 @@
                         Grid.Column="2"
                         VerticalAlignment="Center"
                         FontWeight="SemiBold"
-                        Text="Title" />
+                        Text="Phone Number" />
 
                     <TextBlock
                         Grid.Column="3"
                         VerticalAlignment="Center"
                         FontWeight="SemiBold"
-                        Text="Contract Start" />
+                        Text="Title" />
 
                     <TextBlock
                         Grid.Column="4"
                         VerticalAlignment="Center"
                         FontWeight="SemiBold"
-                        Text="Contract End" />
+                        Text="Contract Start" />
 
                     <TextBlock
                         Grid.Column="5"
+                        VerticalAlignment="Center"
+                        FontWeight="SemiBold"
+                        Text="Contract End" />
+
+                    <TextBlock
+                        Grid.Column="6"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontWeight="SemiBold"
                         Text="Status" />
 
                     <TextBlock
-                        Grid.Column="6"
+                        Grid.Column="7"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontWeight="SemiBold"
@@ -80,19 +86,19 @@
                 </Grid>
 
                 <!--  Table  -->
-                <ScrollViewer Grid.Row="1">
+                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding Employees}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
 
                                 <Border
-                                    Padding="0,6,0,6"
+                                    Padding="0,8,0,8"
                                     BorderBrush="#E6E6E6"
                                     BorderThickness="0,1,0,0">
                                     <Grid
-                                        MinHeight="32"
+                                        MinHeight="40"
                                         VerticalAlignment="Center"
-                                        ColumnDefinitions="60,220,160,160,160,80,160">
+                                        ColumnDefinitions="60,*,140,140,140,140,60,250">
 
                                         <TextBlock
                                             Grid.Column="0"
@@ -107,20 +113,25 @@
                                         <TextBlock
                                             Grid.Column="2"
                                             VerticalAlignment="Center"
-                                            Text="{Binding Position}" />
+                                            Text="{Binding PhoneNumber}" />
 
                                         <TextBlock
                                             Grid.Column="3"
                                             VerticalAlignment="Center"
-                                            Text="{Binding ContractStart}" />
+                                            Text="{Binding Position}" />
 
                                         <TextBlock
                                             Grid.Column="4"
                                             VerticalAlignment="Center"
+                                            Text="{Binding ContractStart}" />
+
+                                        <TextBlock
+                                            Grid.Column="5"
+                                            VerticalAlignment="Center"
                                             Text="{Binding ContractEnd}" />
 
                                         <Ellipse
-                                            Grid.Column="5"
+                                            Grid.Column="6"
                                             Width="15"
                                             Height="15"
                                             HorizontalAlignment="Center"
@@ -131,12 +142,15 @@
                                         </Ellipse>
 
                                         <StackPanel
-                                            Grid.Column="6"
-                                            HorizontalAlignment="Right"
+                                            Grid.Column="7"
+                                            HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Orientation="Horizontal"
                                             Spacing="8">
-
+                                            <Button
+                                                Command="{Binding DataContext.ShowEmployeeDetailsCommand, ElementName=root}"
+                                                CommandParameter="{Binding}"
+                                                Content="Show" />
                                             <Button
                                                 Command="{Binding DataContext.EditEmployeeCommand, ElementName=root}"
                                                 CommandParameter="{Binding}"

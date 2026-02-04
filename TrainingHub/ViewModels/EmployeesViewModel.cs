@@ -79,4 +79,13 @@ public partial class EmployeesViewModel : ViewModelBase
             Employees.Remove(employeeViewModel);
         }
     }
+
+    [RelayCommand]
+    private async Task ShowEmployeeDetails(EmployeeViewModel employeeViewModel)
+    {
+        if (employeeViewModel == null)
+            return;
+
+        await _dialogService.ShowEmployeeDetailsDialogAsync(employeeViewModel.Employee);
+    }
 }
