@@ -9,5 +9,6 @@ namespace TrainingHub.Services
         Task<Employee?> ShowAddEmployeeDialogAsync(string employeeType);
         Task<bool> ShowEditEmployeeDialogAsync(Employee employee);
         Task<bool> ShowDeleteEmployeeDialogAsync(string title, string message);
+        Task ShowEmployeeDetailsDialogAsync(Employee employee);
     }
 }

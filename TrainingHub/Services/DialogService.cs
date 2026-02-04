@@ -71,5 +71,17 @@ namespace TrainingHub.Services
             var result = await window.ShowDialog<bool>(mainWindow);
             return result;
         }
+
+        public async Task ShowEmployeeDetailsDialogAsync(Employee employee)
+        {
+            var mainWindow = GetMainWindow();
+            if (mainWindow == null)
+                return;
+
+            var viewModel = new EmployeeDetailsViewModel(employee);
+            var window = new EmployeeDetailsWindow { DataContext = viewModel };
+
+            await window.ShowDialog(mainWindow);
+        }
     }
 }
