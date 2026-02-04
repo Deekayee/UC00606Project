@@ -2,13 +2,110 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="TrainingHub.Views.DashboardView">
-  <Border Background="White"
-          CornerRadius="12"
-          BorderBrush="#E6E6E6"
-          BorderThickness="1"
-          Padding="16">
-    <TextBlock Text="Dashboard - Page under construction" FontSize="18" FontWeight="SemiBold"/>
-  </Border>
+             xmlns:vm="using:TrainingHub.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="800"
+             x:Class="TrainingHub.Views.DashboardView"
+             x:DataType="vm:DashboardViewModel">
+    
+    <ScrollViewer Padding="20">
+        <StackPanel Spacing="20">
+            
+            <!-- ROW 1: 3 Cards -->
+            <Grid ColumnDefinitions="*, 20, *, 20, *">
+                
+                <!-- Total Employees -->
+                <Border Grid.Column="0" Background="White" CornerRadius="8" BoxShadow="0 2 4 0 #20000000" Padding="20">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="Total Employees" FontWeight="Bold" Foreground="#333333"/>
+                        <TextBlock Text="{Binding TotalEmployees}" FontSize="32" FontWeight="ExtraBold" Foreground="Black"/>
+                        <TextBlock Text="{Binding TotalEmployeesSubtext}" FontSize="12" Foreground="#888888"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Active Contracts -->
+                <Border Grid.Column="2" Background="White" CornerRadius="8" BoxShadow="0 2 4 0 #20000000" Padding="20">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="Active Contracts" FontWeight="Bold" Foreground="#333333"/>
+                        <TextBlock Text="{Binding ActiveContracts}" FontSize="32" FontWeight="ExtraBold" Foreground="Black"/>
+                         <TextBlock Text="{Binding ActiveContractsSubtext}" FontSize="12" Foreground="#888888"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Expired Criminal Records -->
+                <Border Grid.Column="4" Background="White" CornerRadius="8" BoxShadow="0 2 4 0 #20000000" Padding="20">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="Expired Criminal Records" FontWeight="Bold" Foreground="#333333"/>
+                        <TextBlock Text="{Binding ExpiredCriminalRecords}" FontSize="32" FontWeight="ExtraBold" Foreground="#D9534F"/>
+                        <TextBlock Text="{Binding ExpiredCriminalRecordsSubtext}" FontSize="12" Foreground="#888888"/>
+                    </StackPanel>
+                </Border>
+                
+            </Grid>
+            
+            <!-- ROW 2: 2 Cards -->
+            <Grid ColumnDefinitions="*, 20, *">
+                
+                <!-- Total Expenses -->
+                <Border Grid.Column="0" Background="White" CornerRadius="8" BoxShadow="0 2 4 0 #20000000" Padding="20">
+                     <StackPanel Spacing="10">
+                        <TextBlock Text="Total Expenses Per Month" FontWeight="Bold" Foreground="#333333"/>
+                        <TextBlock Text="{Binding TotalMonthlyExpenses, StringFormat='{}{0:C}'}" FontSize="32" FontWeight="ExtraBold" Foreground="Black"/>
+                        <TextBlock Text="{Binding ExpensesSubtext}" FontSize="12" Foreground="#888888"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Active Courses -->
+                <Border Grid.Column="2" Background="White" CornerRadius="8" BoxShadow="0 2 4 0 #20000000" Padding="20">
+                     <StackPanel Spacing="10">
+                        <TextBlock Text="Number of Active Courses" FontWeight="Bold" Foreground="#333333"/>
+                        <TextBlock Text="{Binding ActiveCourses}" FontSize="32" FontWeight="ExtraBold" Foreground="Black"/>
+                        <TextBlock Text="{Binding ActiveCoursesSubtext}" FontSize="12" Foreground="#888888"/>
+                    </StackPanel>
+                </Border>
+                
+            </Grid>
+            
+            <!-- ROW 3: Simulation Controls -->
+            <Border Background="White" CornerRadius="8" BoxShadow="0 2 4 0 #20000000" Padding="20">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Simulation Controls" FontWeight="Bold" Foreground="#333333"/>
+                    
+                    <StackPanel Orientation="Horizontal" Spacing="20">
+                        <Button Command="{Binding AdvanceDayCommand}" Content="Advance Date (1 Day)" 
+                                Padding="15, 10" CornerRadius="6" FontWeight="SemiBold" FontSize="16"/>
+                        
+                        <Button Command="{Binding AdvanceMonthCommand}" Content="Advance Date (1 Month)" 
+                                Padding="15, 10" CornerRadius="6" FontWeight="SemiBold" FontSize="16"/>
+                        
+                        <Button Command="{Binding ResetDateCommand}" Content="Reset Date" 
+                                Padding="15, 10" CornerRadius="6" FontWeight="SemiBold" FontSize="16"
+                                Background="#f0f0f0" Foreground="#333"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            
+            <!-- Notifications Area -->
+             <Border Background="White" CornerRadius="8" BoxShadow="0 2 4 0 #20000000" Padding="20" MinHeight="200">
+                <StackPanel Spacing="15">
+                     <TextBlock Text="Notifications &amp; Warnings" FontWeight="Bold" Foreground="#333333" FontSize="16"/>
+                     
+                     <ScrollViewer MaxHeight="300">
+                         <ItemsControl ItemsSource="{Binding Notifications}">
+                             <ItemsControl.ItemTemplate>
+                                 <DataTemplate>
+                                     <Border Margin="0,0,0,8" Padding="10" CornerRadius="4" Background="#FFF5F5" BorderBrush="#FFCCCC" BorderThickness="1">
+                                         <TextBlock Text="{Binding}" Foreground="#CC0000" TextWrapping="Wrap"/>
+                                     </Border>
+                                 </DataTemplate>
+                             </ItemsControl.ItemTemplate>
+                         </ItemsControl>
+                     </ScrollViewer>
+                     
+                     <!-- Empty State if no notifications (Optional, requires converter or visibility binding) -->
+                     <TextBlock Text="No active warnings." Foreground="#888" IsVisible="{Binding !Notifications.Count}" FontStyle="Italic"/>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

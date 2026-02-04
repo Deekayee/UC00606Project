@@ -113,7 +113,7 @@
 
 				<!-- Courses -->
 				<Grid IsVisible="{Binding IsCoursesVisible}">
-					<views:CoursesView />
+					<views:CoursesView DataContext="{Binding Courses}" />
 				</Grid>
 
 				<!-- Expenses -->
