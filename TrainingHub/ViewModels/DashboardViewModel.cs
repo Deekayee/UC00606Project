@@ -40,13 +40,13 @@ public partial class DashboardViewModel : ViewModelBase
         _company = company;
         _dateProvider = dateProvider;
         
-        _dateProvider.DateChanged += UpdateStats;
+        _dateProvider.DateChanged += RefreshData;
         
-        UpdateStats();
+        RefreshData();
     }
 
     // Update stats based on current date
-    private void UpdateStats()
+    public void RefreshData()
     {
         DateTime today = _dateProvider.Today;
 

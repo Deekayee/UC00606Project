@@ -22,8 +22,16 @@ public partial class EmployeesViewModel : ViewModelBase
         _company = company;
         _dialogService = dialogService;
 
+        RefreshData();
+    }
+
+    public void RefreshData()
+    {
+        Employees.Clear();
         foreach (var employee in _company.Employees)
+        {
             Employees.Add(new EmployeeViewModel(employee));
+        }
     }
 
     [RelayCommand]

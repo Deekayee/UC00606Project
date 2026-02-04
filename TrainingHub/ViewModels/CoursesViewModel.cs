@@ -26,11 +26,11 @@ public partial class CoursesViewModel : ViewModelBase
         _dateProvider = dateProvider;
         _dialogService = dialogService;
 
-        LoadData();
+        RefreshData();
     }
 
     // Data loading
-    private void LoadData()
+    public void RefreshData()
     {
         Courses.Clear();
         foreach (var course in _company.Courses)
