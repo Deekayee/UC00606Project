@@ -71,5 +71,42 @@ namespace TrainingHub.Services
             var result = await window.ShowDialog<bool>(mainWindow);
             return result;
         }
+
+        public async Task<Course?> ShowAddCourseDialogAsync(System.Collections.Generic.IEnumerable<Trainer> trainers)
+        {
+            var mainWindow = GetMainWindow();
+            if (mainWindow == null)
+                return null;
+
+            var viewModel = new AddCourseViewModel(trainers);
+            var window = new AddCourseWindow { DataContext = viewModel };
+
+            var result = await window.ShowDialog<Course?>(mainWindow);
+            return result;
+        }
+
+        public async Task<bool> ShowEditCourseDialogAsync(Course course, System.Collections.Generic.IEnumerable<Trainer> trainers)
+        {
+            var mainWindow = GetMainWindow();
+            if (mainWindow == null)
+                return false;
+
+            var viewModel = new EditCourseViewModel(course, trainers);
+            var window = new EditCourseWindow { DataContext = viewModel };
+
+            var result = await window.ShowDialog<bool>(mainWindow);
+            return result;
+        }
+
+        public async Task<bool> ShowDeleteCourseDialogAsync(string title, string message)
+        {
+            var mainWindow = GetMainWindow();
+            if (mainWindow == null)
+                return false;
+
+            var window = new DeleteCourseWindow(title, message);
+            var result = await window.ShowDialog<bool>(mainWindow);
+            return result;
+        }
     }
 }
