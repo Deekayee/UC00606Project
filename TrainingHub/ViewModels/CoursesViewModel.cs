@@ -45,11 +45,11 @@ public partial class CoursesViewModel : ViewModelBase
         NewStartDate = _dateProvider.Today.AddDays(1);
         NewEndDate = _dateProvider.Today.AddDays(5);
 
-        LoadData();
+        RefreshData();
     }
 
     // Data loading
-    private void LoadData()
+    public void RefreshData()
     {
         Courses.Clear();
         foreach (var course in _company.Courses)

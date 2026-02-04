@@ -66,6 +66,23 @@ public partial class MainWindowViewModel : ViewModelBase
         OnPropertyChanged(nameof(IsEmployeesVisible));
         OnPropertyChanged(nameof(IsCoursesVisible));
         OnPropertyChanged(nameof(IsExpensesVisible));
+
+        // Refresh data when switching to a new page
+        switch (value)
+        {
+            case "Courses":
+                Courses.RefreshData();
+                break;
+            case "Expenses":
+                Expenses.RefreshData();
+                break;
+            case "Dashboard":
+                Dashboard.RefreshData();
+                break;
+            case "Employees":
+                Employees.RefreshData();
+                break;
+        }
     }
 
     [RelayCommand] private void GoDashboard() => CurrentPage = "Dashboard";

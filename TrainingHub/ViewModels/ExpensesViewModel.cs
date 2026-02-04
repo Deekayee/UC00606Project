@@ -47,10 +47,10 @@ public partial class ExpensesViewModel : ViewModelBase
         var todayMonth = _dateProvider.Today.ToString("MM/yyyy");
         SelectedExpenseMonth = ExpenseMonths.Contains(todayMonth) ? todayMonth : ExpenseMonths.FirstOrDefault();
 
-        Refresh();
+        RefreshData();
     }
 
-    partial void OnSelectedExpenseMonthChanged(string? value) => Refresh();
+    partial void OnSelectedExpenseMonthChanged(string? value) => RefreshData();
 
     private const int MonthsToShow = 6;
     private void BuildExpenseMonths()
@@ -74,8 +74,10 @@ public partial class ExpensesViewModel : ViewModelBase
             Trainers.Add(t);
     }
 
-    private void Refresh()
+    public void RefreshData()
     {
+        LoadTrainers();
+
         MonthlyEmployeesTotal = 0m;
         MonthlyTrainersTotal = 0m;
         MonthlyExpenseTotal = 0m;
