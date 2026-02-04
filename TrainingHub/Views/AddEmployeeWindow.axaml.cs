@@ -15,6 +15,10 @@ namespace TrainingHub.Views
         {
             if (DataContext is AddEmployeeViewModel vm)
             {
+                if (!vm.Validate())
+                {
+                    return;
+                }
                 var employee = vm.CreateEmployee();
                 Close(employee);
             }

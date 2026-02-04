@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Threading.Tasks;
 using TrainingHub.Models;
 using TrainingHub.Services;
 
@@ -30,7 +30,8 @@ public partial class EmployeesViewModel : ViewModelBase
     private async Task AddEmployee()
     {
         var type = await _dialogService.ShowEmployeeTypeSelectionAsync();
-        if (string.IsNullOrEmpty(type)) return;
+        if (string.IsNullOrEmpty(type))
+            return;
 
         var newEmployee = await _dialogService.ShowAddEmployeeDialogAsync(type);
         if (newEmployee != null)
@@ -41,22 +42,41 @@ public partial class EmployeesViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void EditEmployee(EmployeeViewModel employee)
+    private async Task EditEmployee(EmployeeViewModel employeeViewModel)
     {
-        if (employee == null)
+        if (employeeViewModel == null)
             return;
 
-        SelectedEmployee = employee;
+        var result = await _dialogService.ShowEditEmployeeDialogAsync(employeeViewModel.Employee);
 
-        // TODO: open modal to edit employee
+        if (result)
+        {
+            // Refresh the list to show updated values
+            var index = Employees.IndexOf(employeeViewModel);
+            if (index >= 0)
+            {
+                Employees[index] = new EmployeeViewModel(employeeViewModel.Employee);
+            }
+        }
     }
 
     [RelayCommand]
-    private void RemoveEmployee(EmployeeViewModel employee)
+    private async Task RemoveEmployee(EmployeeViewModel employeeViewModel)
     {
-        if (employee == null)
+        if (employeeViewModel == null)
             return;
+        // Show confirmation dialog
 
-        // TODO: confirm and remove employee
+        var confirmed = await _dialogService.ShowDeleteEmployeeDialogAsync(
+            "Delete Employee",
+            $"Are you sure you want to delete {employeeViewModel.FullName} ?\n\nThis action cannot be undone."
+        );
+
+        if (confirmed)
+        {
+            _company.RemoveEmployee(employeeViewModel.Employee);
+
+            Employees.Remove(employeeViewModel);
+        }
     }
 }

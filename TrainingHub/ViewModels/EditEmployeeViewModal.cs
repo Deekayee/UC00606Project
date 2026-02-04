@@ -1,12 +1,13 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using TrainingHub.Models;
 
 namespace TrainingHub.ViewModels
 {
-    public partial class AddEmployeeViewModel : ViewModelBase
+    public partial class EditEmployeeViewModel : ViewModelBase
     {
+        private readonly Employee _employee;
+
         public string EmployeeType { get; }
 
         [ObservableProperty]
@@ -17,21 +18,21 @@ namespace TrainingHub.ViewModels
 
         [ObservableProperty]
         private string _address = string.Empty;
-        
+
         [ObservableProperty]
         private string _phoneNumber = string.Empty;
 
         [ObservableProperty]
-        private DateTimeOffset? _contractStartDate = DateTime.Today;
+        private DateTimeOffset? _contractStartDate;
 
         [ObservableProperty]
-        private DateTimeOffset? _contractEndDate = DateTime.Today.AddYears(1);
+        private DateTimeOffset? _contractEndDate;
 
         [ObservableProperty]
-        private DateTimeOffset? _criminalRecordEndDate = DateTime.Today.AddYears(-1);
-        
+        private DateTimeOffset? _criminalRecordEndDate;
+
         [ObservableProperty]
-        private decimal _salaryBase = 2000m;
+        private decimal _salaryBase;
 
         // Trainer specific
         [ObservableProperty]
@@ -39,11 +40,11 @@ namespace TrainingHub.ViewModels
 
         [ObservableProperty]
         private decimal _rate;
-        
+
         // Secretary specific
         [ObservableProperty]
         private string _area = string.Empty;
-        
+
         // Coordinator specific
         [ObservableProperty]
         private string _coordinationArea = string.Empty;
@@ -75,11 +76,41 @@ namespace TrainingHub.ViewModels
         public bool IsCoordinator => EmployeeType == "Coordinator";
         public bool IsDirector => EmployeeType == "Director";
 
-        public AddEmployeeViewModel(string employeeType)
+        public EditEmployeeViewModel(Employee employee)
         {
-            EmployeeType = employeeType;
+            _employee = employee;
+            EmployeeType = employee.GetType().Name;
+
+            FirstName = employee.FirstName;
+            LastName = employee.LastName;
+            Address = employee.Address;
+            PhoneNumber = employee.PhoneNumber;
+            ContractStartDate = employee.ContractStartDate;
+            ContractEndDate = employee.ContractEndDate;
+            CriminalRecordEndDate = employee.CriminalRecordEndDate;
+            SalaryBase = employee.SalaryBase;
+
+            if (employee is Trainer trainer)
+            {
+                Subject = trainer.TeachingSubject;
+                Rate = trainer.HourlyRate;
+            }
+            else if (employee is Secretary secretary)
+            {
+                Area = secretary.Area;
+            }
+            else if (employee is Coordinator coordinator)
+            {
+                CoordinationArea = coordinator.CoordinationArea;
+            }
+            else if (employee is Director director)
+            {
+                FlexibleHours = director.FlexibleHours;
+                MonthlyBonus = director.MonthlyBonus;
+                CompanyCar = director.CompanyCar;
+            }
         }
-        
+
         public bool Validate()
         {
             ErrorMessage = string.Empty;
@@ -114,53 +145,36 @@ namespace TrainingHub.ViewModels
             return true;
         }
 
-        public Employee CreateEmployee()
+        public void UpdateEmployee()
         {
-            // validate here?
-            
-            Employee emp = EmployeeType switch
-            {
-                "Director" => new Director(),
-                "Coordinator" => new Coordinator(),
-                "Secretary" => new Secretary(),
-                "Trainer" => new Trainer(),
-                _ => throw new InvalidOperationException("Unknown type")
-            };
-            
-            // Common properties
-            emp.FirstName = FirstName;
-            emp.LastName = LastName;
-            emp.Address = Address;
-            emp.PhoneNumber = PhoneNumber;
-            emp.ContractStartDate = ContractStartDate?.DateTime ?? DateTime.Today;
-            emp.ContractEndDate = ContractEndDate?.DateTime ?? DateTime.Today;
-            emp.CriminalRecordEndDate = CriminalRecordEndDate?.DateTime ?? DateTime.Today;
-            emp.SalaryBase = SalaryBase;
+            _employee.FirstName = FirstName;
+            _employee.LastName = LastName;
+            _employee.Address = Address;
+            _employee.PhoneNumber = PhoneNumber;
+            _employee.ContractStartDate = ContractStartDate?.DateTime ?? DateTime.Today;
+            _employee.ContractEndDate = ContractEndDate?.DateTime ?? DateTime.Today;
+            _employee.CriminalRecordEndDate = CriminalRecordEndDate?.DateTime ?? DateTime.Today;
+            _employee.SalaryBase = SalaryBase;
 
-            // Specific properties
-            if (emp is Trainer t)
+            if (_employee is Trainer trainer)
             {
-                t.TeachingSubject = Subject;
-                t.HourlyRate = Rate;
-                t.TrainerAvailability = Trainer.Availability.Both; // Default
+                trainer.TeachingSubject = Subject;
+                trainer.HourlyRate = Rate;
             }
-            if (emp is Secretary s)
+            else if (_employee is Secretary secretary)
             {
-               s.Area = Area;
-               // missing to what director this secretary reports to
+                secretary.Area = Area;
             }
-            if (emp is Coordinator c)
+            else if (_employee is Coordinator coordinator)
             {
-                c.CoordinationArea = CoordinationArea;
+                coordinator.CoordinationArea = CoordinationArea;
             }
-            if (emp is Director d)
+            else if (_employee is Director director)
             {
-                d.FlexibleHours = FlexibleHours;
-                d.MonthlyBonus = MonthlyBonus;
-                d.CompanyCar = CompanyCar;
+                director.FlexibleHours = FlexibleHours;
+                director.MonthlyBonus = MonthlyBonus;
+                director.CompanyCar = CompanyCar;
             }
-            
-            return emp;
         }
     }
 }
