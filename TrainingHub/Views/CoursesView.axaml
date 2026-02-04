@@ -10,214 +10,89 @@
              x:DataType="vm:CoursesViewModel"
              x:Name="root">
 
-    <Grid>
+    <Grid Margin="20" RowDefinitions="Auto,*">
 
-        <!-- Main Content -->
-        <Grid Margin="20" RowDefinitions="Auto,*">
+        <!-- Header -->
+        <StackPanel
+            Grid.Row="0"
+            Margin="0,0,0,20"
+            HorizontalAlignment="Right">
+            <Button
+                Command="{Binding OpenAddCourseCommand}"
+                Content="Add Course" />
+        </StackPanel>
 
-            <!-- Header -->
-            <StackPanel
-                Grid.Row="0"
-                Margin="0,0,0,20"
-                HorizontalAlignment="Right">
-                <Button
-                    Command="{Binding OpenAddCourseCommand}"
-                    Content="Add Course" />
-            </StackPanel>
+        <!-- Courses List -->
+        <Border
+            Grid.Row="1"
+            Padding="16"
+            Background="White"
+            CornerRadius="12">
 
-            <!-- Courses List -->
-            <Border
-                Grid.Row="1"
-                Padding="16"
-                Background="White"
-                CornerRadius="12">
+            <Grid RowDefinitions="Auto,*">
 
-                <Grid RowDefinitions="Auto,*">
+                <!-- Table Header -->
+                <Grid
+                    Grid.Row="0"
+                    Margin="0,0,0,8"
+                    ColumnDefinitions="*,160,160,160,160,160">
 
-                    <!-- Table Header -->
-                    <Grid
-                        Grid.Row="0"
-                        Margin="0,0,0,8"
-                        ColumnDefinitions="220,160,160,160,160,160">
-
-                        <TextBlock Grid.Column="0" FontWeight="SemiBold" Text="Course Name" />
-                        <TextBlock Grid.Column="1" FontWeight="SemiBold" Text="Area" />
-                        <TextBlock Grid.Column="2" FontWeight="SemiBold" Text="Start Date" />
-                        <TextBlock Grid.Column="3" FontWeight="SemiBold" Text="End Date" />
-                        <TextBlock Grid.Column="4" FontWeight="SemiBold" Text="Trainer" />
-                        <TextBlock Grid.Column="5" FontWeight="SemiBold" Text="Actions"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center" />
-                    </Grid>
-
-                    <!-- Items -->
-                    <ScrollViewer Grid.Row="1">
-                        <ItemsControl ItemsSource="{Binding Courses}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border
-                                        Padding="0,6"
-                                        BorderBrush="#E6E6E6"
-                                        BorderThickness="0,1,0,0">
-                                        <Grid
-                                            MinHeight="32"
-                                            ColumnDefinitions="220,160,160,160,160,160">
-
-                                            <TextBlock Grid.Column="0" Text="{Binding CourseName}" />
-                                            <TextBlock Grid.Column="1" Text="{Binding Area}" />
-                                            <TextBlock Grid.Column="2"
-                                                       Text="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}" />
-                                            <TextBlock Grid.Column="3"
-                                                       Text="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}" />
-
-                                            <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="4">
-                                                <TextBlock Text="{Binding Trainer.FirstName}" />
-                                                <TextBlock Text="{Binding Trainer.LastName}" />
-                                            </StackPanel>
-
-                                            <StackPanel Grid.Column="5"
-                                                        Orientation="Horizontal"
-                                                        HorizontalAlignment="Right"
-                                                        Spacing="8">
-                                                <Button Content="Edit"
-                                                        Command="{Binding DataContext.EditCourseCommand, ElementName=root}"
-                                                        CommandParameter="{Binding}" />
-                                                <Button Content="Remove"
-                                                        Command="{Binding DataContext.RemoveCourseCommand, ElementName=root}"
-                                                        CommandParameter="{Binding}" />
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
-
+                    <TextBlock Grid.Column="0" FontWeight="SemiBold" Text="Course Name" />
+                    <TextBlock Grid.Column="1" FontWeight="SemiBold" Text="Area" />
+                    <TextBlock Grid.Column="2" FontWeight="SemiBold" Text="Start Date" />
+                    <TextBlock Grid.Column="3" FontWeight="SemiBold" Text="End Date" />
+                    <TextBlock Grid.Column="4" FontWeight="SemiBold" Text="Trainer" />
+                    <TextBlock Grid.Column="5" FontWeight="SemiBold" Text="Actions"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
                 </Grid>
-            </Border>
 
-        </Grid>
+                <!-- Items -->
+                <ScrollViewer Grid.Row="1">
+                    <ItemsControl ItemsSource="{Binding Courses}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Padding="0,6"
+                                    BorderBrush="#E6E6E6"
+                                    BorderThickness="0,1,0,0">
+                                    <Grid
+                                        MinHeight="32"
+                                        ColumnDefinitions="*,160,160,160,160,160">
 
-        <!-- Add Course Modal -->
-        <Grid IsVisible="{Binding IsAddingCourse}">
+                                        <TextBlock Grid.Column="0" Text="{Binding CourseName}" />
+                                        <TextBlock Grid.Column="1" Text="{Binding Area}" />
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}" />
+                                        <TextBlock Grid.Column="3"
+                                                   Text="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}" />
 
-            <!-- Modal Content -->
-            <Border
-                MinWidth="400"
-                Padding="24"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Background="White"
-                BoxShadow="0 4 20 0 #40000000"
-                CornerRadius="12">
+                                        <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="4">
+                                            <TextBlock Text="{Binding Trainer.FirstName}" />
+                                            <TextBlock Text="{Binding Trainer.LastName}" />
+                                        </StackPanel>
 
-                <StackPanel Spacing="16">
+                                        <StackPanel Grid.Column="5"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Right"
+                                                    Spacing="8">
+                                            <Button Content="Edit"
+                                                    Command="{Binding DataContext.EditCourseCommand, ElementName=root}"
+                                                    CommandParameter="{Binding}" />
+                                            <Button Content="Remove"
+                                                    Command="{Binding DataContext.RemoveCourseCommand, ElementName=root}"
+                                                    CommandParameter="{Binding}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
 
-                    <!-- Title -->
-                    <TextBlock FontSize="18"
-                               FontWeight="Bold"
-                               Text="{Binding ModalTitle}" />
-
-                    <!-- Course Name -->
-                    <StackPanel Spacing="4">
-                        <TextBlock FontSize="12" Text="Course Name" />
-                        <TextBox Text="{Binding NewCourseName}" />
-                    </StackPanel>
-
-                    <!-- Area -->
-                    <StackPanel Spacing="4">
-                        <TextBlock FontSize="12" Text="Area" />
-                        <TextBox Text="{Binding NewCourseArea}" />
-                    </StackPanel>
-
-                    <!-- Start Date -->
-                    <StackPanel Spacing="4">
-                        <TextBlock FontSize="12" Text="Start Date" />
-                        <DatePicker SelectedDate="{Binding NewStartDate}" />
-                    </StackPanel>
-
-                    <!-- End Date -->
-                    <StackPanel Spacing="4">
-                        <TextBlock FontSize="12" Text="End Date" />
-                        <DatePicker SelectedDate="{Binding NewEndDate}" />
-                    </StackPanel>
-
-                    <!-- Trainer -->
-                    <StackPanel Spacing="4">
-                        <TextBlock FontSize="12" Text="Trainer" />
-                        <ComboBox ItemsSource="{Binding Trainers}"
-                                  SelectedItem="{Binding SelectedNewTrainer}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" Spacing="4">
-                                        <TextBlock Text="{Binding FirstName}" />
-                                        <TextBlock Text="{Binding LastName}" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </StackPanel>
-
-                    <!-- Error Message -->
-                    <TextBlock Text="{Binding ErrorMessage}"
-                               Foreground="Red"
-                               FontWeight="SemiBold"
-                               HorizontalAlignment="Right"
-                               TextWrapping="Wrap" />
-
-                    <!-- Actions -->
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Right"
-                                Margin="0,16,0,0"
-                                Spacing="8">
-                        <Button Command="{Binding CancelAddCourseCommand}" Content="Cancel" />
-                        <Button Command="{Binding SaveCourseCommand}" Content="Save Course" />
-                    </StackPanel>
-
-                </StackPanel>
-            </Border>
-        </Grid>
-
-        <!-- Remove Course Modal -->
-        <Grid IsVisible="{Binding IsDeletingCourse}">
-
-            <!-- Modal Content -->
-            <Border
-                MinWidth="300"
-                Padding="24"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Background="White"
-                BoxShadow="0 4 20 0 #40000000"
-                CornerRadius="8"
-                BorderBrush="#E6E6E6"
-                BorderThickness="1">
-
-                <StackPanel Spacing="16">
-
-                    <!-- Title -->
-                    <TextBlock FontSize="18"
-                               FontWeight="Bold"
-                               Text="Remove Course" />
-
-                    <!-- Message -->
-                    <TextBlock Text="Are you sure you want to remove this course?" />
-
-                    <!-- Actions -->
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Right"
-                                Margin="0,16,0,0"
-                                Spacing="8">
-                        <Button Command="{Binding CancelRemoveCourseCommand}" Content="Cancel" />
-                        <Button Command="{Binding ConfirmRemoveCourseCommand}"
-                                Content="Remove"
-                                Background="#FF4444"
-                                Foreground="White" />
-                    </StackPanel>
-
-                </StackPanel>
-            </Border>
-        </Grid>
+            </Grid>
+        </Border>
 
     </Grid>
+
 </UserControl>

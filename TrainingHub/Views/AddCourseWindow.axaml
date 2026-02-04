@@ -1,0 +1,55 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TrainingHub.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="using:TrainingHub.Models"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="600"
+        x:Class="TrainingHub.Views.AddCourseWindow"
+        x:DataType="vm:AddCourseViewModel"
+        Title="Add Course"
+        SizeToContent="Height"
+        Width="500"
+        WindowStartupLocation="CenterOwner">
+
+  <ScrollViewer>
+    <StackPanel Spacing="15" Margin="20">
+      <TextBlock Text="Adding New Course" FontSize="18" FontWeight="Bold"/>
+      <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" IsVisible="{Binding HasError}"/>
+
+        <TextBox Text="{Binding CourseName}" Watermark="Course Name"/>
+        <TextBox Text="{Binding Area}" Watermark="Area"/>
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Trainer"/>
+            <ComboBox ItemsSource="{Binding Trainers}" 
+                      SelectedItem="{Binding SelectedTrainer}"
+                      HorizontalAlignment="Stretch">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="models:Trainer">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                             <TextBlock Text="{Binding FirstName}"/>
+                             <TextBlock Text="{Binding LastName}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Spacing="5">
+            <TextBlock Text="Start Date"/>
+            <DatePicker SelectedDate="{Binding StartDate}"/>
+        </StackPanel>
+        
+        <StackPanel Spacing="5">
+              <TextBlock Text="End Date"/>
+              <DatePicker SelectedDate="{Binding EndDate}"/>
+        </StackPanel>
+
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0,20,0,0">
+        <Button Content="Save" Click="SaveButton_Click" IsDefault="True"/>
+        <Button Content="Cancel" Click="CancelButton_Click" IsCancel="True"/>
+      </StackPanel>
+    </StackPanel>
+  </ScrollViewer>
+</Window>
