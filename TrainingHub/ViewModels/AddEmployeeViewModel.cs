@@ -58,6 +58,17 @@ namespace TrainingHub.ViewModels
         [ObservableProperty]
         private bool _companyCar;
 
+        // Error Message
+        [ObservableProperty]
+        private string _errorMessage = string.Empty;
+
+        public bool HasError => !string.IsNullOrEmpty(ErrorMessage);
+
+        partial void OnErrorMessageChanged(string value)
+        {
+            OnPropertyChanged(nameof(HasError));
+        }
+
         public bool IsTrainer => EmployeeType == "Trainer";
         public bool IsNotTrainer => !IsTrainer;
         public bool IsSecretary => EmployeeType == "Secretary";
@@ -69,6 +80,40 @@ namespace TrainingHub.ViewModels
             EmployeeType = employeeType;
         }
         
+        public bool Validate()
+        {
+            ErrorMessage = string.Empty;
+
+            if (
+                string.IsNullOrWhiteSpace(FirstName)
+                || string.IsNullOrWhiteSpace(LastName)
+                || string.IsNullOrWhiteSpace(Address)
+                || string.IsNullOrWhiteSpace(PhoneNumber)
+                || ContractStartDate is null
+                || ContractEndDate is null
+                || CriminalRecordEndDate is null
+            )
+            {
+                ErrorMessage = "All fields are required.";
+                return false;
+            }
+
+            if (ContractEndDate.Value < ContractStartDate.Value)
+            {
+                ErrorMessage = "Contract start date cannot be later than end date.";
+                return false;
+            }
+
+            if (CriminalRecordEndDate.Value < ContractStartDate.Value)
+            {
+                ErrorMessage =
+                    "Criminal record end date cannot be earlier than contract start date.";
+                return false;
+            }
+
+            return true;
+        }
+
         public Employee CreateEmployee()
         {
             // validate here?

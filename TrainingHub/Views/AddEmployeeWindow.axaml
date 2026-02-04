@@ -14,6 +14,7 @@
   <ScrollViewer>
     <StackPanel Spacing="15" Margin="20">
       <TextBlock Text="{Binding EmployeeType, StringFormat='Adding New {0}'}" FontSize="18" FontWeight="Bold"/>
+      <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" IsVisible="{Binding HasError}"/>
 
         <!-- Common Fields -->
         <TextBox Text="{Binding FirstName}" Watermark="First Name"/>
