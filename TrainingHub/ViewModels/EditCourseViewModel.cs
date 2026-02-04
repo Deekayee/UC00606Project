@@ -7,11 +7,13 @@ using TrainingHub.Models;
 
 namespace TrainingHub.ViewModels
 {
+    // Edit Course ViewModel
     public partial class EditCourseViewModel : ViewModelBase
     {
+        // Collections
         public Course Course { get; }
         public ObservableCollection<Trainer> Trainers { get; } = new();
-
+        // Observable properties
         [ObservableProperty]
         private string _courseName = string.Empty;
 
@@ -26,17 +28,17 @@ namespace TrainingHub.ViewModels
 
         [ObservableProperty]
         private Trainer? _selectedTrainer;
-
+        // Error handling
         [ObservableProperty]
         private string _errorMessage = string.Empty;
 
         public bool HasError => !string.IsNullOrEmpty(ErrorMessage);
-
+        // Error message change notification
         partial void OnErrorMessageChanged(string value)
         {
             OnPropertyChanged(nameof(HasError));
         }
-
+        // Constructor
         public EditCourseViewModel(Course course, IEnumerable<Trainer> trainers)
         {
             Course = course;
@@ -53,17 +55,8 @@ namespace TrainingHub.ViewModels
             EndDate = course.EndDate;
             SelectedTrainer = Trainers.FirstOrDefault(t => t == course.Trainer) ?? course.Trainer;
             
-            // If the trainer is not in the list (e.g. fired?), we might need to handle it.
-            // For now assuming the trainer instance is valid or we just match by reference.
-            if (SelectedTrainer != null && !Trainers.Contains(SelectedTrainer))
-            {
-                 // Try to find by ID or Name if reference different?
-                 // Models don't seem to have IDs.
-                 // Assuming reference equality for now or that the passed list includes the current trainer.
-                 // If the list comes from Company.Employees, it should be fine.
-            }
         }
-
+        // Validation logic
         public bool Validate()
         {
             ErrorMessage = string.Empty;
@@ -100,7 +93,7 @@ namespace TrainingHub.ViewModels
 
             return true;
         }
-
+        // Course update
         public void UpdateCourse()
         {
             Course.CourseName = CourseName;
