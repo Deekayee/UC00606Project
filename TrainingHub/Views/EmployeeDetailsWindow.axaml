@@ -1,0 +1,287 @@
+<Window
+    x:Class="TrainingHub.Views.EmployeeDetailsWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:TrainingHub.ViewModels"
+    Title="Employee Details"
+    Width="750"
+    Height="600"
+    x:DataType="vm:EmployeeDetailsViewModel"
+    CanResize="False"
+    WindowStartupLocation="CenterOwner">
+
+    <Design.DataContext>
+        <vm:EmployeeDetailsViewModel />
+    </Design.DataContext>
+
+    <Grid Margin="25" RowDefinitions="Auto,*,Auto">
+
+        <!--  Header  -->
+        <StackPanel
+            Grid.Row="0"
+            Margin="0,0,0,20"
+            Spacing="8">
+            <TextBlock
+                FontSize="24"
+                FontWeight="Bold"
+                Text="{Binding FullName}" />
+            <StackPanel Orientation="Horizontal" Spacing="15">
+                <TextBlock
+                    FontSize="16"
+                    Foreground="#666"
+                    Text="{Binding EmployeeType}" />
+
+            </StackPanel>
+        </StackPanel>
+
+
+        <ScrollViewer Grid.Row="1">
+            <Grid
+                ColumnDefinitions="*,*"
+                ColumnSpacing="25"
+                RowDefinitions="Auto,Auto,Auto"
+                RowSpacing="20">
+
+                <!--  Personal Information  -->
+                <StackPanel
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Spacing="12">
+                    <TextBlock
+                        Margin="0,0,0,8"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Text="Personal Information" />
+
+                    <StackPanel Spacing="8">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#666"
+                            Text="Employee ID" />
+                        <TextBox IsReadOnly="True" Text="{Binding Id}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#666"
+                            Text="First Name" />
+                        <TextBox IsReadOnly="True" Text="{Binding FirstName}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#666"
+                            Text="Last Name" />
+                        <TextBox IsReadOnly="True" Text="{Binding LastName}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#666"
+                            Text="Phone Number" />
+                        <TextBox IsReadOnly="True" Text="{Binding PhoneNumber}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#666"
+                            Text="Address" />
+                        <TextBox
+                            IsReadOnly="True"
+                            Text="{Binding Address}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!--  Contract Information  -->
+                <StackPanel
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Spacing="12">
+                    <TextBlock
+                        Margin="0,0,0,8"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Text="Contract Information" />
+
+                    <StackPanel Spacing="8">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#666"
+                            Text="Contract Start Date" />
+                        <TextBox IsReadOnly="True" Text="{Binding ContractStartDate}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#666"
+                            Text="Contract End Date" />
+                        <TextBox IsReadOnly="True" Text="{Binding ContractEndDate}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#666"
+                            Text="Criminal Record End Date" />
+                        <TextBox IsReadOnly="True" Text="{Binding CriminalRecordEndDate}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#666"
+                            Text="Base Salary" />
+                        <TextBox IsReadOnly="True" Text="{Binding SalaryBase}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!--  Role-Specific Information  -->
+                <StackPanel
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="0,10,0,0"
+                    Spacing="12">
+
+                    <!--  Trainer Specific  -->
+                    <StackPanel IsVisible="{Binding IsTrainer}" Spacing="12">
+                        <TextBlock
+                            Margin="0,0,0,8"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Text="Trainer Information" />
+
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="25">
+                            <StackPanel Grid.Column="0" Spacing="8">
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="#666"
+                                    Text="Teaching Subject" />
+                                <TextBox IsReadOnly="True" Text="{Binding Subject}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Spacing="8">
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="#666"
+                                    Text="Hourly Rate" />
+                                <TextBox IsReadOnly="True" Text="{Binding Rate}" />
+                            </StackPanel>
+                        </Grid>
+
+                        <StackPanel Spacing="8">
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="#666"
+                                Text="Availability" />
+                            <TextBox IsReadOnly="True" Text="{Binding Availability}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--  Secretary Specific  -->
+                    <StackPanel IsVisible="{Binding IsSecretary}" Spacing="12">
+                        <TextBlock
+                            Margin="0,0,0,8"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Text="Secretary Information" />
+
+                        <StackPanel Spacing="8">
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="#666"
+                                Text="Area" />
+                            <TextBox IsReadOnly="True" Text="{Binding Area}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--  Coordinator Specific  -->
+                    <StackPanel IsVisible="{Binding IsCoordinator}" Spacing="12">
+                        <TextBlock
+                            Margin="0,0,0,8"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Text="Coordinator Information" />
+
+                        <StackPanel Spacing="8">
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="#666"
+                                Text="Coordination Area" />
+                            <TextBox IsReadOnly="True" Text="{Binding CoordinationArea}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--  Director Specific  -->
+                    <StackPanel IsVisible="{Binding IsDirector}" Spacing="12">
+                        <TextBlock
+                            Margin="0,0,0,8"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Text="Director Information" />
+
+                        <Grid
+                            ColumnDefinitions="*,*"
+                            ColumnSpacing="25"
+                            RowDefinitions="Auto,Auto"
+                            RowSpacing="12">
+                            <StackPanel
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Spacing="8">
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="#666"
+                                    Text="Flexible Hours" />
+                                <TextBox IsReadOnly="True" Text="{Binding FlexibleHours}" />
+                            </StackPanel>
+
+                            <StackPanel
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Spacing="8">
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="#666"
+                                    Text="Monthly Bonus" />
+                                <TextBox IsReadOnly="True" Text="{Binding MonthlyBonus}" />
+                            </StackPanel>
+
+                            <StackPanel
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Spacing="8">
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="#666"
+                                    Text="Company Car" />
+                                <TextBox IsReadOnly="True" Text="{Binding CompanyCar}" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+        <Border
+            Grid.Row="2"
+            Margin="0,20,0,0"
+            Padding="0,15,0,0"
+            BorderBrush="#E0E0E0"
+            BorderThickness="0,1,0,0">
+            <Button
+                Width="120"
+                HorizontalAlignment="Right"
+                HorizontalContentAlignment="Center"
+                Click="OnClose"
+                Content="Close" />
+        </Border>
+    </Grid>
+</Window>
