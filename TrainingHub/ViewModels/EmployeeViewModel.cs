@@ -19,6 +19,8 @@ public class EmployeeViewModel
 
     public string Position => Employee.GetType().Name;
 
+    public string PhoneNumber => Employee.PhoneNumber;
+
     public string ContractStart => Employee.ContractStartDate.ToString("d MMM yyyy");
 
     public string ContractEnd => Employee.ContractEndDate.ToString("d MMM yyyy");
