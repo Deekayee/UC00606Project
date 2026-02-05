@@ -16,6 +16,7 @@
             Spacing="12">
 
             <Button Command="{Binding AddEmployeeCommand}" Content="Add Employee" />
+            <Button Command="{Binding ExportEmployeesCommand}" Content="Export" />
         </StackPanel>
 
 

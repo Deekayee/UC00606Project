@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -13,16 +14,22 @@ public partial class EmployeesViewModel : ViewModelBase
 {
     private readonly Company _company;
     private readonly IDialogService _dialogService;
+    private readonly IExportService _exportService;
 
     public ObservableCollection<EmployeeViewModel> Employees { get; } = new();
 
     [ObservableProperty]
     private EmployeeViewModel? _selectedEmployee;
 
-    public EmployeesViewModel(Company company, IDialogService dialogService)
+    public EmployeesViewModel(
+        Company company,
+        IDialogService dialogService,
+        IExportService exportService
+    )
     {
         _company = company;
         _dialogService = dialogService;
+        _exportService = exportService;
 
         RefreshData();
     }
@@ -103,5 +110,14 @@ public partial class EmployeesViewModel : ViewModelBase
             return;
 
         await _dialogService.ShowEmployeeDetailsDialogAsync(employeeViewModel.Employee);
+    }
+
+    [RelayCommand]
+    private void ExportEmployees()
+    {
+        if (!Employees.Any())
+            return;
+
+        _exportService.ExportEmployeesToCsv(_company);
     }
 }

@@ -11,5 +11,8 @@ namespace TrainingHub.Services
         Task<bool> ShowEditEmployeeDialogAsync(Employee employee);
         Task<bool> ShowDeleteEmployeeDialogAsync(string title, string message);
         Task ShowEmployeeDetailsDialogAsync(Employee employee);
+        Task<Course?> ShowAddCourseDialogAsync(System.Collections.Generic.IEnumerable<Trainer> trainers);
+        Task<bool> ShowEditCourseDialogAsync(Course course, System.Collections.Generic.IEnumerable<Trainer> trainers);
+        Task<bool> ShowDeleteCourseDialogAsync(string title, string message);
     }
 }
