@@ -4,6 +4,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TrainingHub.Models;
 using TrainingHub.Services;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TrainingHub.ViewModels;
 
@@ -41,7 +43,13 @@ public partial class EmployeesViewModel : ViewModelBase
         if (string.IsNullOrEmpty(type))
             return;
 
-        var newEmployee = await _dialogService.ShowAddEmployeeDialogAsync(type);
+        List<Director>? directors = null;
+        if (type == "Secretary")
+        {
+            directors = _company.Employees.OfType<Director>().ToList();
+        }
+
+        var newEmployee = await _dialogService.ShowAddEmployeeDialogAsync(type, directors);
         if (newEmployee != null)
         {
             _company.AddEmployee(newEmployee);
