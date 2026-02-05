@@ -3,31 +3,35 @@ using CommunityToolkit.Mvvm.Input;
 using TrainingHub.Models;
 using TrainingHub.Services;
 
-
 namespace TrainingHub.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-
     private readonly IDateProvider _dateProvider;
     private readonly Company _company;
+    private readonly IExportService _exportService;
 
-    [ObservableProperty] private string username = string.Empty;
+    [ObservableProperty]
+    private string username = string.Empty;
 
-    [ObservableProperty] private string password = string.Empty;
+    [ObservableProperty]
+    private string password = string.Empty;
 
-    [ObservableProperty] private string message = string.Empty;
+    [ObservableProperty]
+    private string message = string.Empty;
 
-    [ObservableProperty] private bool isError;
-    [ObservableProperty] private bool isLoggedIn;
+    [ObservableProperty]
+    private bool isError;
 
+    [ObservableProperty]
+    private bool isLoggedIn;
 
     public bool ShowLogin => !IsLoggedIn;
     public bool ShowDashboard => IsLoggedIn;
     public string HeaderDateText => _dateProvider.Today.ToString("dd/MM/yyyy");
 
-    
-    [ObservableProperty] private string currentPage = "Dashboard";
+    [ObservableProperty]
+    private string currentPage = "Dashboard";
 
     public bool IsDashboardVisible => CurrentPage == "Dashboard";
     public bool IsEmployeesVisible => CurrentPage == "Employees";
@@ -43,14 +47,15 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         _dateProvider = new DateProvider();
         _company = new Company(_dateProvider);
-        
+        _exportService = new ExportService(_dateProvider);
+
         _dateProvider.DateChanged += () => OnPropertyChanged(nameof(HeaderDateText));
-        
+
         DemoSeeder.Seed(_company);
 
         Dashboard = new DashboardViewModel(_company, _dateProvider);
         Expenses = new ExpensesViewModel(_company, _dateProvider);
-        Employees = new EmployeesViewModel(_company, dialogService);
+        Employees = new EmployeesViewModel(_company, dialogService, _exportService);
         Courses = new CoursesViewModel(_company, _dateProvider, dialogService);
     }
 
@@ -85,10 +90,17 @@ public partial class MainWindowViewModel : ViewModelBase
         }
     }
 
-    [RelayCommand] private void GoDashboard() => CurrentPage = "Dashboard";
-    [RelayCommand] private void GoEmployees() => CurrentPage = "Employees";
-    [RelayCommand] private void GoCourses() => CurrentPage = "Courses";
-    [RelayCommand] private void GoExpenses() => CurrentPage = "Expenses";
+    [RelayCommand]
+    private void GoDashboard() => CurrentPage = "Dashboard";
+
+    [RelayCommand]
+    private void GoEmployees() => CurrentPage = "Employees";
+
+    [RelayCommand]
+    private void GoCourses() => CurrentPage = "Courses";
+
+    [RelayCommand]
+    private void GoExpenses() => CurrentPage = "Expenses";
 
     [RelayCommand]
     private void Login()

@@ -94,8 +94,8 @@ namespace TrainingHub.Services
             var course1 = new Course(
                 courseName: "Intro C#",
                 area: "Programming",
-                startDate: new DateTime(2026, 1, 10),
-                endDate: new DateTime(2026, 1, 14),
+                startDate: new DateTime(2026, 2, 10),
+                endDate: new DateTime(2026, 2, 14),
                 trainer: t1
             );
 
@@ -103,8 +103,8 @@ namespace TrainingHub.Services
             var course2 = new Course(
                 courseName: "SQL Basics",
                 area: "Database",
-                startDate: new DateTime(2026, 2, 5),
-                endDate: new DateTime(2026, 2, 7),
+                startDate: new DateTime(2026, 3, 5),
+                endDate: new DateTime(2026, 3, 7),
                 trainer: t2
             );
 
