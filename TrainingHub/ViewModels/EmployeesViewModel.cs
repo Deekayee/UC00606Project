@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.Input;
 using TrainingHub.Models;
 using TrainingHub.Services;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace TrainingHub.ViewModels;
 
