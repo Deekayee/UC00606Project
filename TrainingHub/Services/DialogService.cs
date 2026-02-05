@@ -97,7 +97,7 @@ public class DialogService : IDialogService
     // Course Dialogs
 
     // Show add course modal
-    public async Task<Course?> ShowAddCourseDialogAsync(System.Collections.Generic.IEnumerable<Trainer> trainers)
+    public async Task<Course?> ShowAddCourseDialogAsync(IEnumerable<Trainer> trainers)
     {
         var mainWindow = GetMainWindow();
         if (mainWindow == null)
@@ -111,7 +111,7 @@ public class DialogService : IDialogService
     }
 
     // Show edit course modal
-    public async Task<bool> ShowEditCourseDialogAsync(Course course, System.Collections.Generic.IEnumerable<Trainer> trainers)
+    public async Task<bool> ShowEditCourseDialogAsync(Course course, IEnumerable<Trainer> trainers)
     {
         var mainWindow = GetMainWindow();
         if (mainWindow == null)
