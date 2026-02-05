@@ -5,6 +5,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using TrainingHub.Models;
 using TrainingHub.ViewModels;
 using TrainingHub.Views;
+using System.Collections.Generic;
 
 namespace TrainingHub.Services
 {
@@ -35,13 +36,13 @@ namespace TrainingHub.Services
             return result;
         }
 
-        public async Task<Employee?> ShowAddEmployeeDialogAsync(string employeeType)
+        public async Task<Employee?> ShowAddEmployeeDialogAsync(string employeeType, List<Director>? directors = null)
         {
             var mainWindow = GetMainWindow();
             if (mainWindow == null)
                 return null;
 
-            var viewModel = new AddEmployeeViewModel(employeeType);
+            var viewModel = new AddEmployeeViewModel(employeeType, directors);
             var window = new AddEmployeeWindow { DataContext = viewModel };
 
             var result = await window.ShowDialog<Employee?>(mainWindow);
