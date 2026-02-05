@@ -70,7 +70,6 @@ namespace TrainingHub.ViewModels
         }
 
         public bool IsTrainer => EmployeeType == "Trainer";
-        public bool IsNotTrainer => !IsTrainer;
         public bool IsSecretary => EmployeeType == "Secretary";
         public bool IsCoordinator => EmployeeType == "Coordinator";
         public bool IsDirector => EmployeeType == "Director";

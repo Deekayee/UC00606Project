@@ -22,7 +22,7 @@
         <TextBox Text="{Binding Address}" Watermark="Address"/>
         <TextBox Text="{Binding PhoneNumber}" Watermark="Phone Number"/>
         
-        <StackPanel Spacing="5" IsVisible="{Binding IsNotTrainer}">
+        <StackPanel Spacing="5" IsVisible="{Binding !IsTrainer}">
             <TextBlock Text="Salary Base"/>
             <NumericUpDown Value="{Binding SalaryBase}" FormatString="C"/>
         </StackPanel>
