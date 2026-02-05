@@ -72,8 +72,6 @@
 										<StackPanel Orientation="Horizontal" Spacing="6">
 											<TextBlock Text="{Binding FirstName}"/>
 											<TextBlock Text="{Binding LastName}"/>
-											<TextBlock Text=" - " Opacity="0.6"/>
-											<TextBlock Text="{Binding TeachingSubject}" Opacity="0.8"/>
 										</StackPanel>
 									</DataTemplate>
 								</ComboBox.ItemTemplate>
@@ -82,6 +80,7 @@
 
 						<DockPanel Margin="0,6,0,0">
 							<Button DockPanel.Dock="Left"
+				                    HorizontalContentAlignment="Center" 
 									Content="Calculate"
 									Command="{Binding CalculatePaymentCommand}"
 									Width="120"/>

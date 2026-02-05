@@ -37,9 +37,13 @@ public class Company
         Employees.Remove(employee);
     }
 
-    public void AddCourse(Course course)
+    public void AddCourse(Course course, bool prevDate = false)
     {
-        if (course.StartDate.Date > _dateProvider.Today.Date)
+        if (!prevDate && course.StartDate.Date < course.EndDate.Date && course.StartDate.Date >= _dateProvider.Today.Date)
+        {
+            Courses.Add(course);
+        } 
+        else if (prevDate)
         {
             Courses.Add(course);
         }
