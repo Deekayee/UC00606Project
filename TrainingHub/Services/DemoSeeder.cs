@@ -90,7 +90,7 @@ namespace TrainingHub.Services
             company.AddEmployee(c1);
 
             // 2) Courses to appoint trainers to
-            // January 2026 (t1)
+            // February 2026 (t1)
             var course1 = new Course(
                 courseName: "Intro C#",
                 area: "Programming",
@@ -99,7 +99,7 @@ namespace TrainingHub.Services
                 trainer: t1
             );
 
-            // February 2026 (t2)
+            // March 2026 (t2)
             var course2 = new Course(
                 courseName: "SQL Basics",
                 area: "Database",
