@@ -108,9 +108,28 @@ namespace TrainingHub.Services
                 trainer: t2
             );
 
+            // December 2025 (t1)
+            var course3 = new Course(
+                courseName: "Advanced C#",
+                area: "Programming",
+                startDate: new DateTime(2025, 12, 1),
+                endDate: new DateTime(2025, 12, 5),
+                trainer: t1
+            );
+            // November 2025 (t2)
+            var course4 = new Course(
+                courseName: "Advanced SQL",
+                area: "Database",
+                startDate: new DateTime(2025, 11, 1),
+                endDate: new DateTime(2025, 11, 5),
+                trainer: t2
+            );     
+
             // Used in AddCourse to link course to trainer
             company.AddCourse(course1);
             company.AddCourse(course2);
+            company.AddCourse(course3, true);
+            company.AddCourse(course4, true);
 
             // AssignedCourses to capulate trainer's schedule
             t1.AssignedCourses.Add(course1);
