@@ -58,3 +58,6 @@ nunit-*.xml
 
 # VS Code
 .vs/
+
+# Exported files
+*.csv
