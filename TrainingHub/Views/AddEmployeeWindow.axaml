@@ -22,7 +22,7 @@
         <TextBox Text="{Binding Address}" Watermark="Address"/>
         <TextBox Text="{Binding PhoneNumber}" Watermark="Phone Number"/>
         
-        <StackPanel Spacing="5" IsVisible="{Binding IsNotTrainer}">
+        <StackPanel Spacing="5" IsVisible="{Binding !IsTrainer}">
             <TextBlock Text="Salary Base"/>
             <NumericUpDown Value="{Binding SalaryBase}" FormatString="C"/>
         </StackPanel>
@@ -54,6 +54,23 @@
       <!-- Secretary Fields -->
       <StackPanel IsVisible="{Binding IsSecretary}" Spacing="15">
          <TextBox Text="{Binding Area}" Watermark="Area"/>
+         <StackPanel Spacing="5">
+             <TextBlock Text="Reports To (Director)"/>
+             <ComboBox ItemsSource="{Binding AvailableDirectors}" SelectedItem="{Binding SelectedDirector}" HorizontalAlignment="Stretch">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="FirstName" FallbackValue="" TargetNullValue=""/>
+                                    <Binding Path="LastName" FallbackValue="" TargetNullValue=""/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+             </ComboBox>
+         </StackPanel>
       </StackPanel>
 
       <!-- Coordinator Fields -->

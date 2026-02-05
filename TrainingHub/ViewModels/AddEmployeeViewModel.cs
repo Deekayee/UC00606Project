@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using TrainingHub.Models;
+using System.Collections.Generic;
 
 namespace TrainingHub.ViewModels
 {
@@ -70,14 +71,20 @@ namespace TrainingHub.ViewModels
         }
 
         public bool IsTrainer => EmployeeType == "Trainer";
-        public bool IsNotTrainer => !IsTrainer;
         public bool IsSecretary => EmployeeType == "Secretary";
         public bool IsCoordinator => EmployeeType == "Coordinator";
         public bool IsDirector => EmployeeType == "Director";
 
-        public AddEmployeeViewModel(string employeeType)
+        [ObservableProperty]
+        private List<Director> _availableDirectors;
+
+        [ObservableProperty]
+        private Director? _selectedDirector;
+
+        public AddEmployeeViewModel(string employeeType, List<Director>? directors = null)
         {
             EmployeeType = employeeType;
+            AvailableDirectors = directors ?? new List<Director>();
         }
         
         public bool Validate()
@@ -98,6 +105,12 @@ namespace TrainingHub.ViewModels
                 return false;
             }
 
+            if (IsSecretary && SelectedDirector == null)
+            {
+               ErrorMessage = "A secretary must report to a director.";
+               return false;
+            }
+
             if (ContractEndDate.Value < ContractStartDate.Value)
             {
                 ErrorMessage = "Contract start date cannot be later than end date.";
@@ -115,9 +128,8 @@ namespace TrainingHub.ViewModels
         }
 
         public Employee CreateEmployee()
-        {
-            // validate here?
-            
+        {      
+            // switch to create the correct type of employee      
             Employee emp = EmployeeType switch
             {
                 "Director" => new Director(),
@@ -147,7 +159,7 @@ namespace TrainingHub.ViewModels
             if (emp is Secretary s)
             {
                s.Area = Area;
-               // missing to what director this secretary reports to
+               s.ReportsToDirector = SelectedDirector!;
             }
             if (emp is Coordinator c)
             {

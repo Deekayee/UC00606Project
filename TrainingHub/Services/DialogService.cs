@@ -5,6 +5,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using TrainingHub.Models;
 using TrainingHub.ViewModels;
 using TrainingHub.Views;
+using System.Collections.Generic;
 
 namespace TrainingHub.Services;
 
