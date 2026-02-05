@@ -1,5 +1,10 @@
 # TrainingHub
 
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)
+![Framework](https://img.shields.io/badge/.NET-9.0-purple)
+![UI](https://img.shields.io/badge/UI-Avalonia%2011.3-green)
+ 
+
 Final project for UC00606 Desenvolver programas em linguagem estruturada, whose objective was to develop a Desktop application built with **C# + Avalonia UI** to manage a training center.
 
 ## Tech Stack
@@ -52,29 +57,42 @@ TrainingHub/
 │  ├─ Company.cs
 │  └─ ...
 ├─ Services/
-│  ├─ IDateProvider.cs
 │  ├─ DateProvider.cs
-│  └─ DemoSeeder.cs
+│  ├─ DemoSeeder.cs
+│  ├─ DialogService.cs
+│  ├─ IDateProvider.cs
+│  ├─ ExportService.cs
+│  ├─ IExportService.cs
+│  └─ IDiologService.cs
 ├─ ViewModels/
-│  ├─ ViewModelBase.cs
-│  ├─ MainWindowViewModel.cs
+│  ├─ AddEmployeeTypeViewModel.cs
+│  ├─ AddEmployeeViewModel.cs
+│  ├─ AddCourseViewModel.cs
+│  ├─ CourseViewModel.cs
 │  ├─ DashboardViewModel.cs
+│  ├─ EditCourseViewModel.cs
+│  ├─ EditEmployeeViewModel.cs
+│  ├─ EmployeeDetailsViewModel.cs
+│  ├─ EmployeeViewModel.cs
 │  ├─ EmployeesViewModel.cs
-│  ├─ CoursesViewModel.cs
-│  └─ ExpensesViewModel.cs
+│  ├─ ExpensesViewModel.cs
+│  ├─ MainWindowViewModel.cs
+│  └─ ViewModelBase.cs
 ├─ Views/
-│  ├─ MainWindow.axaml
-│  ├─ MainWindow.axaml.cs
-│  ├─ DashboardView.axaml
-│  ├─ DashboardView.axaml.cs
-│  ├─ EmployeesView.axaml
-│  ├─ EmployeesView.axaml.cs
+│  ├─ AddCourseWindow.axaml
+│  ├─ AddEmployeeWindow.axaml
 │  ├─ CoursesView.axaml
-│  ├─ CoursesView.axaml.cs
+│  ├─ DashboardView.axaml
+│  ├─ DeleteEnployeeWindows.axaml
+│  ├─ DeleteCourseWindows.axaml
+│  ├─ EditCourseWindows.axaml
+│  ├─ EditEmployeeWindow.axaml
+│  ├─ EmployeeDetailsWindow.axaml
+│  ├─ EmployeesView.axaml
+│  ├─ EmployeeTypeWindow.axaml
 │  ├─ ExpensesView.axaml
-│  └─ ExpensesView.axaml.cs
+│  └─ MainWindow.axaml
 ├─ App.axaml
-├─ App.axaml.cs
 ├─ Program.cs
 └─ TrainingHub.csproj
 ```
