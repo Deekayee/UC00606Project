@@ -39,14 +39,23 @@ public class Company
 
     public void AddCourse(Course course, bool prevDate = false)
     {
-        if (!prevDate && course.StartDate.Date < course.EndDate.Date && course.StartDate.Date >= _dateProvider.Today.Date)
+        if (
+            !prevDate
+            && course.StartDate.Date < course.EndDate.Date
+            && course.StartDate.Date >= _dateProvider.Today.Date
+        )
         {
             Courses.Add(course);
-        } 
+        }
         else if (prevDate)
         {
             Courses.Add(course);
         }
+    }
+
+    public void RemoveCourse(Course course)
+    {
+        Courses.Remove(course);
     }
 
     public void UpdateCriminalRecord(int employeeId, DateTime newDate)
@@ -85,23 +94,23 @@ public class Company
     }
 
     // Expenses
-    
+
     public decimal CalculateTotalTrainerPayments(int month, int year)
     {
         return Courses
             .Where(c => c.StartDate.Month == month && c.StartDate.Year == year)
             .Sum(c => c.CalculateTrainerPayment());
     }
-    
+
     public decimal CalculateTotalMonthlyExpense()
     {
         var today = _dateProvider.Today;
         decimal baseSalaries = Employees
             .Where(e => e.IsContractValid(today))
             .Sum(e => e.CalculateMonthlySalary());
-            
+
         decimal trainerPayments = CalculateTotalTrainerPayments(today.Month, today.Year);
-        
+
         return baseSalaries + trainerPayments;
     }
 }
