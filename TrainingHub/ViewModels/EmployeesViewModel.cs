@@ -1,11 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TrainingHub.Models;
 using TrainingHub.Services;
-using System.Collections.Generic;
+using TrainingHub.Views;
 
 namespace TrainingHub.ViewModels;
 
@@ -112,11 +115,24 @@ public partial class EmployeesViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void ExportEmployees()
+    private async Task ExportEmployees()
     {
         if (!Employees.Any())
+        {
+            await _dialogService.ShowExportErrorMessageAsync("No employees to export.");
             return;
+        }
 
-        _exportService.ExportEmployeesToCsv(_company);
+        try
+        {
+            _exportService.ExportEmployeesToCsv(_company);
+            await _dialogService.ShowExportSuccessMessageAsync();
+        }
+        catch (Exception ex)
+        {
+            await _dialogService.ShowExportErrorMessageAsync(
+                $"Failed to export employees:\n{ex.Message}"
+            );
+        }
     }
 }
