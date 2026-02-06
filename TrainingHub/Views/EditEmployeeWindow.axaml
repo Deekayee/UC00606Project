@@ -67,7 +67,6 @@
                 <TextBlock Text="Hourly Rate" />
                 <NumericUpDown
                     FormatString="C2"
-                    Maximum="10000"
                     Minimum="0"
                     Value="{Binding Rate}" />
             </StackPanel>
@@ -91,7 +90,6 @@
                 <TextBlock Text="Monthly Bonus" />
                 <NumericUpDown
                     FormatString="C2"
-                    Maximum="100000"
                     Minimum="0"
                     Value="{Binding MonthlyBonus}" />
 
