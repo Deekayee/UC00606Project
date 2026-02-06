@@ -4,14 +4,14 @@ namespace TrainingHub.Models;
 
 public class Course
 {
-     // Properties
-    public string CourseName { get; set; }
-    public string Area { get; set; }
-    public Trainer Trainer { get; set; }
+    // Properties
+    public string? CourseName { get; set; }
+    public string? Area { get; set; }
+    public Trainer? Trainer { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
 
-// Constants
+    // Constants
     public const int HoursPerDay = 6;
 
     // Constructors
@@ -19,10 +19,14 @@ public class Course
     public Course() { }
 
     // Parameterized constructor
-    public Course(string courseName, string area,
-        DateTime startDate, DateTime endDate, Trainer trainer)
+    public Course(
+        string courseName,
+        string area,
+        DateTime startDate,
+        DateTime endDate,
+        Trainer trainer
+    )
     {
-       
         CourseName = courseName;
         Area = area;
         StartDate = startDate;

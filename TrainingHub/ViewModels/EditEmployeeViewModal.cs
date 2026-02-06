@@ -81,10 +81,10 @@ namespace TrainingHub.ViewModels
             _employee = employee;
             EmployeeType = employee.GetType().Name;
 
-            FirstName = employee.FirstName;
-            LastName = employee.LastName;
-            Address = employee.Address;
-            PhoneNumber = employee.PhoneNumber;
+            FirstName = employee.FirstName ?? string.Empty;
+            LastName = employee.LastName ?? string.Empty;
+            Address = employee.Address ?? string.Empty;
+            PhoneNumber = employee.PhoneNumber ?? string.Empty;
             ContractStartDate = employee.ContractStartDate;
             ContractEndDate = employee.ContractEndDate;
             CriminalRecordEndDate = employee.CriminalRecordEndDate;
@@ -97,11 +97,11 @@ namespace TrainingHub.ViewModels
             }
             else if (employee is Secretary secretary)
             {
-                Area = secretary.Area;
+                Area = secretary.Area ?? string.Empty;
             }
             else if (employee is Coordinator coordinator)
             {
-                CoordinationArea = coordinator.CoordinationArea;
+                CoordinationArea = coordinator.CoordinationArea ?? string.Empty;
             }
             else if (employee is Director director)
             {

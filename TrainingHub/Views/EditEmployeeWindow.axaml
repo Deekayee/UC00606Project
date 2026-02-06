@@ -55,7 +55,6 @@
                 <TextBlock Text="Base Salary" />
                 <NumericUpDown
                     FormatString="C2"
-                    Maximum="1000000"
                     Minimum="0"
                     Value="{Binding SalaryBase}" />
             </StackPanel>

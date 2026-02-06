@@ -1,8 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.ObjectModel;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
 using TrainingHub.Models;
 
 namespace TrainingHub.ViewModels
@@ -13,6 +13,7 @@ namespace TrainingHub.ViewModels
         // Collections
         public Course Course { get; }
         public ObservableCollection<Trainer> Trainers { get; } = new();
+
         // Observable properties
         [ObservableProperty]
         private string _courseName = string.Empty;
@@ -28,34 +29,37 @@ namespace TrainingHub.ViewModels
 
         [ObservableProperty]
         private Trainer? _selectedTrainer;
+
         // Error handling
         [ObservableProperty]
         private string _errorMessage = string.Empty;
 
         public bool HasError => !string.IsNullOrEmpty(ErrorMessage);
+
         // Error message change notification
         partial void OnErrorMessageChanged(string value)
         {
             OnPropertyChanged(nameof(HasError));
         }
+
         // Constructor
         public EditCourseViewModel(Course course, IEnumerable<Trainer> trainers)
         {
             Course = course;
-            
+
             foreach (var trainer in trainers)
             {
                 Trainers.Add(trainer);
             }
 
             // Initialize fields
-            CourseName = course.CourseName;
-            Area = course.Area;
+            CourseName = course.CourseName ?? string.Empty;
+            Area = course.Area ?? string.Empty;
             StartDate = course.StartDate;
             EndDate = course.EndDate;
             SelectedTrainer = Trainers.FirstOrDefault(t => t == course.Trainer) ?? course.Trainer;
-            
         }
+
         // Validation logic
         public bool Validate()
         {
@@ -93,6 +97,7 @@ namespace TrainingHub.ViewModels
 
             return true;
         }
+
         // Course update
         public void UpdateCourse()
         {

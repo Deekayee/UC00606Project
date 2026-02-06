@@ -5,6 +5,10 @@ namespace TrainingHub.Views
 {
     public partial class DeleteEmployeeWindow : Window
     {
+        // Parameterless constructor for XAML runtime loader
+        public DeleteEmployeeWindow()
+            : this(string.Empty, string.Empty) { }
+
         public DeleteEmployeeWindow(string title, string message)
         {
             InitializeComponent();
