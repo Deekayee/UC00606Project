@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -5,7 +6,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using TrainingHub.Models;
 using TrainingHub.ViewModels;
 using TrainingHub.Views;
-using System.Collections.Generic;
 
 namespace TrainingHub.Services;
 
@@ -42,7 +42,10 @@ public class DialogService : IDialogService
     }
 
     // Show add employee modal
-    public async Task<Employee?> ShowAddEmployeeDialogAsync(string employeeType, List<Director>? directors = null)
+    public async Task<Employee?> ShowAddEmployeeDialogAsync(
+        string employeeType,
+        List<Director>? directors = null
+    )
     {
         var mainWindow = GetMainWindow();
         if (mainWindow == null)
@@ -134,5 +137,27 @@ public class DialogService : IDialogService
         var window = new DeleteCourseWindow(title, message);
         var result = await window.ShowDialog<bool>(mainWindow);
         return result;
+    }
+
+    // Show export success message
+    public async Task ShowExportSuccessMessageAsync()
+    {
+        var mainWindow = GetMainWindow();
+        if (mainWindow == null)
+            return;
+
+        var window = new ShowSuccessExportWindow();
+        await window.ShowDialog(mainWindow);
+    }
+
+    // Show export error message
+    public async Task ShowExportErrorMessageAsync(string errorMessage)
+    {
+        var mainWindow = GetMainWindow();
+        if (mainWindow == null)
+            return;
+
+        var window = new ShowErrorExportWindow(errorMessage);
+        await window.ShowDialog(mainWindow);
     }
 }
