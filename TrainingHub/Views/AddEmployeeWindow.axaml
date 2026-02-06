@@ -24,7 +24,10 @@
         
         <StackPanel Spacing="5" IsVisible="{Binding !IsTrainer}">
             <TextBlock Text="Salary Base"/>
-            <NumericUpDown Value="{Binding SalaryBase}" FormatString="C"/>
+            <NumericUpDown 
+                Value="{Binding SalaryBase}" 
+                FormatString="C"
+                Minimum="0"/>
         </StackPanel>
 
         <StackPanel Spacing="5">
@@ -47,7 +50,10 @@
         <TextBox Text="{Binding Subject}" Watermark="Subject"/>
         <StackPanel Spacing="5">
              <TextBlock Text="Hourly Rate"/>
-             <NumericUpDown Value="{Binding Rate}" FormatString="C"/>
+             <NumericUpDown 
+                Value="{Binding Rate}" 
+                FormatString="C"
+                Minimum="0"/>
         </StackPanel>
       </StackPanel>
 
@@ -84,7 +90,10 @@
            <CheckBox IsChecked="{Binding CompanyCar}" Content="Company Car"/>
            <StackPanel Spacing="5">
                 <TextBlock Text="Monthly Bonus"/>
-                <NumericUpDown Value="{Binding MonthlyBonus}" FormatString="C"/>
+                <NumericUpDown 
+                    Value="{Binding MonthlyBonus}" 
+                    FormatString="C"
+                    Minimum="0"/>
            </StackPanel>
       </StackPanel>
 
