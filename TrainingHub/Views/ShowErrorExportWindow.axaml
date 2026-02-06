@@ -1,0 +1,25 @@
+<Window
+    x:Class="TrainingHub.Views.ShowErrorExportWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Export Error"
+    Width="350"
+    Height="100"
+    CanResize="False"
+    WindowStartupLocation="CenterScreen">
+
+    <StackPanel Margin="20" Spacing="15">
+        <TextBlock
+            x:Name="ErrorMessageText"
+            FontSize="14"
+            Foreground="Red"
+            TextWrapping="Wrap" />
+
+        <Button
+            Width="80"
+            HorizontalAlignment="Center"
+            HorizontalContentAlignment="Center"
+            Click="OnOkClick"
+            Content="OK" />
+    </StackPanel>
+</Window>
