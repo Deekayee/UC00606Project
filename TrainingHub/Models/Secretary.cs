@@ -3,12 +3,13 @@
 namespace TrainingHub.Models;
 
 public class Secretary : Employee
-{   
+{
     // Properties
     // Director this secretary reports to
-    public Director ReportsToDirector { get; set; }
+    public Director? ReportsToDirector { get; set; }
+
     // Department/area the secretary belongs to
-    public string Area { get; set; }
+    public string? Area { get; set; }
 
     // Constructors
     // Default constructor
@@ -27,11 +28,24 @@ public class Secretary : Employee
         decimal salaryBase,
         Director reportsToDirector,
         string area
-    ) : base(id, firstName, lastName, address, phoneNumber, contractStartDate, contractEndDate, criminalRecordEndDate, salaryBase)
+    )
+        : base(
+            id,
+            firstName,
+            lastName,
+            address,
+            phoneNumber,
+            contractStartDate,
+            contractEndDate,
+            criminalRecordEndDate,
+            salaryBase
+        )
     {
         // Validate arguments
-        if (reportsToDirector == null) throw new ArgumentNullException(nameof(reportsToDirector));
-        if (string.IsNullOrWhiteSpace(area)) throw new ArgumentException("Area cannot be null or whitespace", nameof(area));
+        if (reportsToDirector == null)
+            throw new ArgumentNullException(nameof(reportsToDirector));
+        if (string.IsNullOrWhiteSpace(area))
+            throw new ArgumentException("Area cannot be null or whitespace", nameof(area));
 
         ReportsToDirector = reportsToDirector;
         Area = area;
@@ -48,5 +62,6 @@ public class Secretary : Employee
     public override string ToString()
     {
         // Include name, role, area, and a null-safe director name
-        return $"{base.ToString()},- Secretary ({Area}) - Director: {(ReportsToDirector != null ? $"{ReportsToDirector.FirstName} {ReportsToDirector.LastName}" : "N/A")}";}
+        return $"{base.ToString()},- Secretary ({Area}) - Director: {(ReportsToDirector != null ? $"{ReportsToDirector.FirstName} {ReportsToDirector.LastName}" : "N/A")}";
+    }
 }

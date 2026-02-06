@@ -1,14 +1,11 @@
 ﻿using System;
-
 using System.Collections.Generic;
 using System.Linq;
-
 
 namespace TrainingHub.Models;
 
 public class Trainer : Employee
 {
-
     // Availability indicates when the trainer can teach
 
     // Enum representing the available time periods.
@@ -16,52 +13,64 @@ public class Trainer : Employee
     {
         // Available during daytime hours
         Daytime,
+
         // Available during evening hours
         Evening,
+
         // Available during both daytime and evening
         Both,
     }
 
-        // Properties
-        public string TeachingSubject { get; set; }
-        public Availability TrainerAvailability { get; set; }
-        public decimal HourlyRate { get; set; }
-        public List<Course> AssignedCourses { get; } = new List<Course>();
+    // Properties
+    public string TeachingSubject { get; set; } = string.Empty;
+    public Availability TrainerAvailability { get; set; }
+    public decimal HourlyRate { get; set; }
+    public List<Course> AssignedCourses { get; } = new List<Course>();
 
-        public Trainer() { }
+    public Trainer() { }
 
-        // Parameterized constructor
-        public Trainer(
-            int id,
-            string firstName,
-            string lastName,
-            string address,
-            string phoneNumber,
-            DateTime contractStartDate,
-            DateTime contractEndDate,
-            DateTime criminalRecordEndDate,
-            decimal salaryBase,
-            string teachingSubject,
-            Availability trainerAvailability,
-            decimal hourlyRate
-        ) : base(id, firstName, lastName, address, phoneNumber, contractStartDate, contractEndDate, criminalRecordEndDate, salaryBase)
-        {
-            TeachingSubject = teachingSubject;
-            TrainerAvailability = trainerAvailability;
-            HourlyRate = hourlyRate;
-        }
+    // Parameterized constructor
+    public Trainer(
+        int id,
+        string firstName,
+        string lastName,
+        string address,
+        string phoneNumber,
+        DateTime contractStartDate,
+        DateTime contractEndDate,
+        DateTime criminalRecordEndDate,
+        decimal salaryBase,
+        string teachingSubject,
+        Availability trainerAvailability,
+        decimal hourlyRate
+    )
+        : base(
+            id,
+            firstName,
+            lastName,
+            address,
+            phoneNumber,
+            contractStartDate,
+            contractEndDate,
+            criminalRecordEndDate,
+            salaryBase
+        )
+    {
+        TeachingSubject = teachingSubject;
+        TrainerAvailability = trainerAvailability;
+        HourlyRate = hourlyRate;
+    }
 
-        // Methods
-        // Method to calculate total trainer payments for courses starting in the current month
-        public override decimal CalculateMonthlySalary()
-        {
-            return SalaryBase;
-        }
-        // Method to represent the trainer as a string
-        public override string ToString()
-        {
-            return $"{base.ToString()} - Trainer ({TeachingSubject}) - Availability: {TrainerAvailability} - Hourly Rate: {HourlyRate:C}";
-        }
+    // Methods
+    // Method to calculate total trainer payments for courses starting in the current month
+    public override decimal CalculateMonthlySalary()
+    {
+        return SalaryBase;
+    }
 
+    // Method to represent the trainer as a string
+    public override string ToString()
+    {
+        return $"{base.ToString()} - Trainer ({TeachingSubject}) - Availability: {TrainerAvailability} - Hourly Rate: {HourlyRate:C}";
+    }
 }
-

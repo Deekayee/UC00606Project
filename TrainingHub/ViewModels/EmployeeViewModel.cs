@@ -19,7 +19,7 @@ public class EmployeeViewModel
 
     public string Position => Employee.GetType().Name;
 
-    public string PhoneNumber => Employee.PhoneNumber;
+    public string PhoneNumber => Employee.PhoneNumber ?? string.Empty;
 
     public string ContractStart => Employee.ContractStartDate.ToString("d MMM yyyy");
 

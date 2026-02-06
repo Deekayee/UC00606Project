@@ -5,6 +5,10 @@ namespace TrainingHub.Views;
 
 public partial class ShowErrorExportWindow : Window
 {
+    public ShowErrorExportWindow()
+    {
+        InitializeComponent();
+    }
     public ShowErrorExportWindow(string message)
     {
         InitializeComponent();

@@ -9,11 +9,11 @@ namespace TrainingHub.ViewModels
 
         public string EmployeeType { get; }
         public int Id => _employee.Id;
-        public string FirstName => _employee.FirstName;
-        public string LastName => _employee.LastName;
+        public string FirstName => _employee.FirstName ?? string.Empty;
+        public string LastName => _employee.LastName ?? string.Empty;
         public string FullName => $"{_employee.FirstName} {_employee.LastName}";
-        public string Address => _employee.Address;
-        public string PhoneNumber => _employee.PhoneNumber;
+        public string Address => _employee.Address ?? string.Empty;
+        public string PhoneNumber => _employee.PhoneNumber ?? string.Empty;
         public string ContractStartDate => _employee.ContractStartDate.ToString("dd/MM/yyyy");
         public string ContractEndDate => _employee.ContractEndDate.ToString("dd/MM/yyyy");
         public string CriminalRecordEndDate =>
@@ -48,20 +48,30 @@ namespace TrainingHub.ViewModels
             _employee = employee;
             EmployeeType = employee.GetType().Name;
 
+            // Initialize all properties with defaults
+            Subject = string.Empty;
+            Rate = string.Empty;
+            Availability = string.Empty;
+            Area = string.Empty;
+            CoordinationArea = string.Empty;
+            FlexibleHours = string.Empty;
+            MonthlyBonus = string.Empty;
+            CompanyCar = string.Empty;
+
             // Load specific properties
             if (employee is Trainer trainer)
             {
-                Subject = trainer.TeachingSubject;
+                Subject = trainer.TeachingSubject ?? string.Empty;
                 Rate = trainer.HourlyRate.ToString("C2");
                 Availability = trainer.TrainerAvailability.ToString();
             }
             else if (employee is Secretary secretary)
             {
-                Area = secretary.Area;
+                Area = secretary.Area ?? string.Empty;
             }
             else if (employee is Coordinator coordinator)
             {
-                CoordinationArea = coordinator.CoordinationArea;
+                CoordinationArea = coordinator.CoordinationArea ?? string.Empty;
             }
             else if (employee is Director director)
             {

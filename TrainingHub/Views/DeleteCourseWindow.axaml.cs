@@ -23,8 +23,6 @@ namespace TrainingHub.Views
             }
         }
 
-       
-        
         public DeleteCourseWindow()
         {
             InitializeComponent();
